@@ -5,6 +5,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
+/**
+ * //Answered Questions Class
+ *
+ */
+
 class answeredQuestions {
     private HashMap<SingleQuestion, String> questions;
 
@@ -13,7 +18,7 @@ class answeredQuestions {
     }
 
     public void addNewAnsweredQuestion(SingleQuestion question, String answer) {
-            this.questions.put(question, answer);
+        this.questions.put(question, answer);
     }
 
     public void printAnswers() {
@@ -27,7 +32,11 @@ class answeredQuestions {
     }
 }
 
-// Player Class
+/**
+ * // Player Class
+ *Creates a player with his name, gets the given answer of the player, checks if the given answer is correct and updates
+ * the score of the player.
+ */
 public class Player {
     private String playerName;
     private int score;
@@ -80,6 +89,4 @@ public class Player {
 
         return temp;
     }
-
-
 }

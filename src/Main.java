@@ -1,6 +1,12 @@
 import java.util.Random;
 import java.util.Scanner;
 
+
+/**
+ *ti kanw twra re
+ * les
+ *
+ */
 public class Main {
     public static void main(String[] args) {
         Random rant = new Random();
