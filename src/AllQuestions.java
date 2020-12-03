@@ -5,6 +5,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ *Στην μέθοδο fillQuestions η οποία δεν επιστρέφει τιμή, φορτώνουμε τις ερωτήσεις απο το .csv αρχείο. Όσο το αρχείο δεν είναι null,
+ *με την fileReader διαβάζουμε τους χαρακτήρες και με την BufferReader διαβάζουμε το κείμενο που περιέχει αυτούς τους χαρακτήρες,
+ *ξεκινάμε απο το 3ο κελί καθώς στο πρώτο κελί έχουμε το key, δεύτερο κελί έχουμε τις κατηγορίες ερωτήσεων.
+ *Στην μέθοδο newEntry η οποία δεν επιστρέφει κάποια τιμή (void),
+ * Στην μέθοδο getRandomQuestion η οποία επιστρέφει ένα String,
+ * Στην μέθοδο getAllCategories η οποία επιστρέφει έναν πίνακα απο Strings, με την χρήση της for επιστρέφει όλες τις κατήφορίες που
+ *υπάρχουν στο .csv
+ *Στην μέθοδο getTotalQuestions η οποία επιστρέφει έναν ακέραιο αριθμό (count), μας επιστρέφει το σύνολο των ερωτήσεων που υπάρχει
+ *μέσα στο αρχείο.
+ */
+
 public class AllQuestions {
     private HashMap<String, ArrayList<SingleQuestion>> questions;
 

@@ -6,8 +6,9 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 /**
- * //Answered Questions Class
- *
+ *Δημιουργούμε ενα hashmap<key,values> όπου σε κάθε μοναδικό key (SingleQuestion) αντιχτοιχή κάθε μοναδική ερώτηση και
+ *σαν value (String) παίρνουμε την ερώτηση.
+ *Στην μέθοδο printAnswers η οποία δεν επιστρέφει τιμή, τυπώνει τις ερωτήσεις χρησιμοιόντας μια for με βάση το μοναδικό τους key (k).
  */
 
 class answeredQuestions {
@@ -33,9 +34,11 @@ class answeredQuestions {
 }
 
 /**
- * // Player Class
- *Creates a player with his name, gets the given answer of the player, checks if the given answer is correct and updates
- * the score of the player.
+ *Με την κλάση Player δημιουργούμε έναν παίκτη όπου κρατάμε το σκορ και τις απαντήσεις του.
+ *Στην μέθοδο setNewScore η οποία δεν επιστρέφει τιμή, ελέγχουμε άμα η απάντησή του είναι
+ * σωστή και ενημερώνουμε την βαθμολογία του.
+ *Στην μέθοδο getAnswer η οποία επιστρέφει ακέραιο αριθμό, δημιουργούμε ένα αντικείμενο
+ *με το όνομα userInput. Τέλος επιστρέφουμε την απάντηση που δίνει ο παίκτης μέσω του ακεράιου temp.
  */
 public class Player {
     private String playerName;
@@ -86,7 +89,6 @@ public class Player {
             case("D"): temp = 3; break;
             case("d"): temp = 3; break;
         }
-
         return temp;
     }
 }
