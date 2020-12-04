@@ -8,12 +8,14 @@ import java.util.Scanner;
 /**
  *Δημιουργούμε ενα hashmap<key,values> όπου σε κάθε μοναδικό key (SingleQuestion) αντιχτοιχή κάθε μοναδική ερώτηση και
  *σαν value (String) παίρνουμε την ερώτηση.
- *Στην μέθοδο printAnswers η οποία δεν επιστρέφει τιμή, τυπώνει τις ερωτήσεις χρησιμοιόντας μια for με βάση το μοναδικό τους key (k).
  */
-
 class answeredQuestions {
     private HashMap<SingleQuestion, String> questions;
 
+    /**
+     *
+     * @param rounds
+     */
     public answeredQuestions(int rounds) {
         questions = new HashMap<>(rounds);
     }
@@ -22,6 +24,9 @@ class answeredQuestions {
         this.questions.put(question, answer);
     }
 
+    /**
+     *Στην μέθοδο printAnswers η οποία δεν επιστρέφει τιμή, τυπώνει τις ερωτήσεις χρησιμοιόντας μια for με βάση το μοναδικό τους key (k).
+     */
     public void printAnswers() {
         Iterator<SingleQuestion> k = questions.keySet().iterator();
         for(int j =0; j<questions.size(); j++) {
@@ -35,15 +40,17 @@ class answeredQuestions {
 
 /**
  *Με την κλάση Player δημιουργούμε έναν παίκτη όπου κρατάμε το σκορ και τις απαντήσεις του.
- *Στην μέθοδο setNewScore η οποία δεν επιστρέφει τιμή, ελέγχουμε άμα η απάντησή του είναι
- * σωστή και ενημερώνουμε την βαθμολογία του.
- *Στην μέθοδο getAnswer η οποία επιστρέφει ακέραιο αριθμό, δημιουργούμε ένα αντικείμενο
- *με το όνομα userInput. Τέλος επιστρέφουμε την απάντηση που δίνει ο παίκτης μέσω του ακεράιου temp.
  */
 public class Player {
     private String playerName;
     private int score;
     private answeredQuestions questionsAndResult;
+
+    /**
+     * Ο κατασκευαστής της κλάσης.
+     * @param name Το όνομα του χρήστη.
+     * @param rounds Ο αριθμός των γύρων.
+     */
 
     public Player(String name, int rounds) {
         this.playerName = name;
@@ -54,6 +61,13 @@ public class Player {
     public void setName(String name) {
         this.playerName = name;
     }
+
+    /**
+     * Στην μέθοδο setNewScore η οποία δεν επιστρέφει τιμή, ελέγχουμε άμα η απάντησή του είναι
+     * σωστή και ενημερώνουμε την βαθμολογία του.
+     * @param question Η απάντηση που έδωσε ο χρήστης.
+     * @param newScore Το σκορ το οποίο ενημερώνεται με βάση την απάντηση του παίκτη.
+     */
     public void setNewScore(SingleQuestion question, int newScore) {
         int temp = getAnswer();
         if(question.correctAnswer().equals(question.getAnswers().get(temp))) {
@@ -73,6 +87,12 @@ public class Player {
     public void getAnsweredQuestions() {
         questionsAndResult.printAnswers();
     }
+
+    /**
+     * Στην μέθοδο getAnswer η οποία επιστρέφει ακέραιο αριθμό, δημιουργούμε ένα αντικείμενο
+     * με το όνομα userInput.
+     * @return Επιστρέφει την απάντηση.
+     */
     public int getAnswer() {
         Scanner userInput = new Scanner(System.in);
         System.out.println("What is your answer? ");

@@ -5,11 +5,17 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * 
+ */
 class GameRounds {
     private ArrayList<String> gameRounds;
     private int score;
     private int roundIndex;
 
+    /**
+     * Ο κατασκευαστής της κλάσης.
+     */
     public GameRounds() {
         gameRounds = new ArrayList<>();
         gameRounds.add("Correct Answer");
@@ -18,6 +24,10 @@ class GameRounds {
         roundIndex = -1;
     }
 
+    /**
+     *Η μέθοδος BettingRound αποθηκεύει το ποσό που στοιχηματίζεται.
+     * @return Επιστρέφει το ποσό που στοιχημάτησε ο χρήστης (score).
+     */
     private int BettingRound() {
         Scanner temp = new Scanner(System.in);
         System.out.println();
@@ -38,6 +48,9 @@ class GameRounds {
         return score;
     }
 
+    /**
+     *
+     */
     public void RandomRound() {
         Random temp = new Random();
         roundIndex = temp.nextInt(gameRounds.size());
@@ -62,6 +75,10 @@ class GameRounds {
         }
     }
 
+    /**
+     * Η Μέθοδος
+     * @return Επιστρέφει το σκορ του παίκτη.
+     */
     public int getScore() {
         switch(roundIndex) {
             case(0):    score = 1000; break;
@@ -71,6 +88,9 @@ class GameRounds {
     }
 }
 
+/**
+ *
+ */
 public class GameEnvironment {
     private int roundCount;
     private int questionCount;
@@ -80,6 +100,12 @@ public class GameEnvironment {
     private AllQuestions allQuestions;
     private GameRounds round;
 
+    /**
+     *
+     * @param rounds
+     * @param questions
+     * @param players
+     */
     public GameEnvironment(int rounds, int questions, int players) {
         allQuestions = new AllQuestions();
         allQuestions.fillQuestions();
@@ -122,6 +148,10 @@ public class GameEnvironment {
         System.out.println(question.getQuestion());
     }
 
+    /**
+     * Η μέθοδος showAnswers εμφανίζει τις δυνατές απαντήσεις που έχει να επιλέξει μία από αυτές ο χρήστης.
+     * @param question
+     */
     private void showAnswers(SingleQuestion question) {
         System.out.println("Choose an answer:");
         System.out.println("A) " + question.getAnswers().get(0));
@@ -130,6 +160,9 @@ public class GameEnvironment {
         System.out.println("D) " + question.getAnswers().get(3));
     }
 
+    /**
+     *
+     */
     public void nextRound() {
         round = new GameRounds();
         round.RandomRound();
@@ -142,6 +175,9 @@ public class GameEnvironment {
         }
     }
 
+    /**
+     * Η μέθοδος printTotalScore τυπώνει το συνολικό σκορ του παίκτη.
+     */
     public void printTotalScore() {
         System.out.println();
         System.out.println("Total score of:");
