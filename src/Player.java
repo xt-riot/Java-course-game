@@ -6,40 +6,56 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 /**
- *Δημιουργούμε ενα hashmap<key,values> όπου σε κάθε μοναδικό key (SingleQuestion) αντιχτοιχή κάθε μοναδική ερώτηση και
- *σαν value (String) παίρνουμε την ερώτηση.
+ *  <pre>Βοηθητική κλάση answeredQuestions.
+ *
+ *  Χρησιμοποιείται για την αποθήκευση των απαντημένων ερωτήσεων από τον κάθε παίχτη.</pre>
  */
 class answeredQuestions {
     private HashMap<SingleQuestion, String> questions;
 
     /**
-     *
-     * @param rounds
+     *  answeredQuestions constructor
      */
-    public answeredQuestions(int rounds) {
-        questions = new HashMap<>(rounds);
+    public answeredQuestions() {
+        questions = new HashMap<>();
     }
 
+    /**
+     * Εισαγωγή νέας απαντημένης ερώτησης.
+     * @param question Η ερώτηση σε μορφή SingleQuestion object
+     * @param answer Η απάντηση του παίχτη
+     */
     public void addNewAnsweredQuestion(SingleQuestion question, String answer) {
         this.questions.put(question, answer);
     }
 
     /**
-     *Στην μέθοδο printAnswers η οποία δεν επιστρέφει τιμή, τυπώνει τις ερωτήσεις χρησιμοιόντας μια for με βάση το μοναδικό τους key (k).
+     *  <pre>Εκτύπωση όλων των ερωτήσεων καθώς και των απαντήσεων που έχει δώσει ο παίχτης.
+     *  Κάθε εκτύπωση είναι της μορφής:
+     *
+     *  Ερώτηση
+     *      Απάντηση του χρήστη
+     *          Σωστή απάντηση</pre>
      */
     public void printAnswers() {
         Iterator<SingleQuestion> k = questions.keySet().iterator();
         for(int j =0; j<questions.size(); j++) {
             SingleQuestion temp = k.next();
             System.out.print("Question: " + temp.getQuestion());
-            System.out.print("\t\t\tAnswered: " + questions.get(temp));
-            System.out.println("\tCorrect answer was: " + temp.getAnswers().get(temp.getAnswers().size()-1));
+            System.out.print("\tAnswered: " + questions.get(temp));
+            System.out.println("\t\tCorrect answer was: " + temp.getAnswers().get(temp.getAnswers().size()-1));
         }
     }
 }
 
 /**
- *Με την κλάση Player δημιουργούμε έναν παίκτη όπου κρατάμε το σκορ και τις απαντήσεις του.
+ * <pre>Κλάση Player
+ *
+ * Αντικείμενο με το οποίο αναπαριστάται κάθε παίχτης.
+ * Παρέχει πληροφορίες για:
+ *      * Το όνομα του παίχτη,
+ *      * Τους πόντους του παίχτη,
+ *      * Τις απαντημένες ερωτήσεις του παίχτη.</pre>
  */
 public class Player {
     private String playerName;
@@ -47,26 +63,26 @@ public class Player {
     private answeredQuestions questionsAndResult;
 
     /**
-     * Ο κατασκευαστής της κλάσης.
-     * @param name Το όνομα του χρήστη.
-     * @param rounds Ο αριθμός των γύρων.
+     * Player constructor
+     * @param name Το όνομα του παίχτη
+     * @param rounds Οι συνολικοί γύροι παιχνιδιού(αποφασίζεται τυχαία στην αρχή του παιχνιδιού)
      */
 
     public Player(String name, int rounds) {
         this.playerName = name;
         this.score = 0;
-        questionsAndResult = new answeredQuestions(rounds);
+        questionsAndResult = new answeredQuestions();
     }
+
 
     public void setName(String name) {
         this.playerName = name;
     }
 
     /**
-     * Στην μέθοδο setNewScore η οποία δεν επιστρέφει τιμή, ελέγχουμε άμα η απάντησή του είναι
-     * σωστή και ενημερώνουμε την βαθμολογία του.
-     * @param question Η απάντηση που έδωσε ο χρήστης.
-     * @param newScore Το σκορ το οποίο ενημερώνεται με βάση την απάντηση του παίκτη.
+     * Αλλαγή των πόντων του παίχτη
+     * @param question SingleQuestion object - η ερώτηση που δόθηκε στον παίχτη
+     * @param newScore Integer - Οι πόντοι που θα προστεθούν στους συνολικούς πόντους του παίχτη
      */
     public void setNewScore(SingleQuestion question, int newScore) {
         int temp = getAnswer();
@@ -89,9 +105,12 @@ public class Player {
     }
 
     /**
-     * Στην μέθοδο getAnswer η οποία επιστρέφει ακέραιο αριθμό, δημιουργούμε ένα αντικείμενο
-     * με το όνομα userInput.
-     * @return Επιστρέφει την απάντηση.
+     * <pre>Δέχεται την απάντηση του παίχτη σε κάποια ερώτηση.
+     *
+     * TODO Μη αποδοχή λάθος επιλογής(σε περίπτωση που ο χρήστης επιστρέψει μη-έγκυρη επιλογή)
+     * </pre>
+     * @return την απάντηση σε μορφή Integer(η επιλογή Α/a επιστρέφει την τιμή 0, η Β/b την τιμή 1 κ.ο.κ)
+     *
      */
     public int getAnswer() {
         Scanner userInput = new Scanner(System.in);
