@@ -8,7 +8,9 @@ import java.util.Scanner;
 /**
  *  <pre>Βοηθητική κλάση answeredQuestions.
  *
- *  Χρησιμοποιείται για την αποθήκευση των απαντημένων ερωτήσεων από τον κάθε παίχτη.</pre>
+ *  Χρησιμοποιείται για την αποθήκευση των απαντημένων ερωτήσεων από τον κάθε παίχτη.
+ *  TODO Μέθοδο για την εκτύπωση συγκεκριμένης απαντημένης ερώτησης.
+ *  </pre>
  */
 class answeredQuestions {
     private HashMap<SingleQuestion, String> questions;
