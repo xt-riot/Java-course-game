@@ -1,5 +1,3 @@
-// imports
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -17,9 +15,8 @@ public class AllQuestions {
     }
 
     /**
-     * Στην μέθοδο fillQuestions η οποία δεν επιστρέφει τιμή, φορτώνουμε τις ερωτήσεις απο το .csv αρχείο. Όσο το αρχείο δεν είναι null,
-     * με την fileReader διαβάζουμε τους χαρακτήρες και με την BufferReader διαβάζουμε το κείμενο που περιέχει αυτούς τους χαρακτήρες,
-     * ξεκινάμε απο το 3ο κελί καθώς στο πρώτο κελί έχουμε το key, δεύτερο κελί έχουμε τις κατηγορίες ερωτήσεων.
+     * Στην μέθοδο fillQuestions η οποία δεν επιστρέφει τιμή, φορτώνουμε τις ερωτήσεις απο το .csv αρχείο. Όσο η πρώτη γραμμή δεν είναι null,
+     * με την fileReader διαβάζουμε τους χαρακτήρες και με την BufferReader διαβάζουμε το κείμενο που περιέχει αυτούς τους χαρακτήρες.
      */
     public void fillQuestions() {
         String line = "";
@@ -33,7 +30,8 @@ public class AllQuestions {
             while ((line = br.readLine()) != null) {
                 newEntry(new SingleQuestion(line));
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -53,10 +51,10 @@ public class AllQuestions {
         }
     }
 
-    /**Στην μέθοδο getRandomQuestion η οποία επιστρέφει ένα String,
-     *
-     * @param category
-     * @return
+    /**
+     *Μέθοδος που επιλέγει τυχαία τις ερωτήσεις.
+     * @param category Δέχεται την κατηφορία της ερώτησης (String).
+     * @return Επιστρέφει την τυχαία ερώτηση.
      */
     public SingleQuestion getRandomQuestion(String category) {
         ArrayList<SingleQuestion> randomQuestionCategory = this.questions.get(category);
@@ -67,7 +65,7 @@ public class AllQuestions {
     }
 
     /**
-     * Στην μέθοδο getAllCategories η οποία επιστρέφει έναν πίνακα απο Strings.
+     * Μέθοδος για να πάρουμε όλες τις κατηγορίες.
      * @return Επιστρέφει όλες τις κατηγορίες που υπάρχουν στο .csv αρχείο.
      */
     public String[] getAllCategories() {
@@ -80,7 +78,7 @@ public class AllQuestions {
     }
 
     /**
-     * Στην μέθοδο getTotalQuestions η οποία επιστρέφει έναν ακέραιο αριθμό (count).
+     * Μέθοδος για τον υπολογισμό όλων των ερωτήσεων.
      * @return Επιστρέφει το σύνολο των ερωτήσεων.
      */
     public int getTotalQuestions() {
@@ -93,9 +91,9 @@ public class AllQuestions {
     }
 
     /**
-     *
-     * @param category
-     * @return
+     * Μέθοδος για να πάρουμε την κατηγορία.
+     * @param category Δέχεται ένα String δηλαδή την κατηφορία της ερώτησης.
+     * @return Επιστρέφει την κατηγορία της ερώτησης.
      */
     public ArrayList<SingleQuestion> getCategoryQuestions(String category) {
         return questions.get(category);
