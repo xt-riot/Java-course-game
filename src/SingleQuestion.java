@@ -1,5 +1,7 @@
 // imports
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class SingleQuestion {
@@ -17,22 +19,26 @@ public class SingleQuestion {
 
     /**
      * Ο κατασκευαστής της κλάσης.
-     * @param question Οι ερωτήσεις του παιχνιδίου.
-     * @param answers Οι απάντησείς του χρήστη.
-     * @param category Οι κατηγορίες των ερωτήσεων απο το .csv αρχείο.
      */
-    public SingleQuestion(String question, ArrayList<String> answers, String category ) {
+    public SingleQuestion(String line) {
         // CODE to get question from a file(path) in the designated line(questionNumber)
 
-
-        this.question = question;
-        this.answers = answers;
         this.hasTheQuestionImage = false;
-        this.category = category;
+        this.answers = new ArrayList<>();
+        String[] data = line.split(",");      // Σπάσε την γραμμή κάθε φορά που εμφανίζεται κόμα
+        this.category = data[0];                    // Το πρώτο κελί    - Κατηγορία ερώτησης
+        this.question = data[1];                    // Το δεύτερο κελί  - Ερώτηση
+        answers.add(data[2]);                       // Το τρίτο κελί    - Απάντηση 1
+        answers.add(data[3]);                       // Το τέταρτο κελί  - Απάντηση 2
+        answers.add(data[4]);                       // Το πέμπτο κελί   - Απάντηση 3
+        answers.add(data[5]);                       // Το έκτο κελί     - Απάντηση 4
+        Collections.shuffle(answers);               // Ανακάτεψε τις απαντήσεις πριν μπει η σωστή
+        answers.add(data[6]);                       // Το έβδομο κελί   - Σωστή απάντηση
     }
 
     /**
      * Για αργότερα θα το χρησιμοποιήσουμε.
+     *
      * @return
      */
     public boolean getHasTheQuestionImage() {
@@ -41,6 +47,7 @@ public class SingleQuestion {
 
     /**
      * Μία λίστα απο Strings που περιέχει τις απαντήσεις.
+     *
      * @return Επιστρέφει την απάντηση.
      */
     public ArrayList<String> getAnswers() {
@@ -49,6 +56,7 @@ public class SingleQuestion {
 
     /**
      * Επιλέγει την ερώτηση.
+     *
      * @return Επιστρέφει την ερώτηση που επιλέχτηκε.
      */
     public String getQuestion() {
@@ -57,6 +65,7 @@ public class SingleQuestion {
 
     /**
      * Επιλέγει την κατηγορία.
+     *
      * @return Επιστρέφει την κατηφορία που επιλέχτηκε.
      */
     public String getCategory() {
@@ -75,9 +84,10 @@ public class SingleQuestion {
 
     /**
      * Μέθοδος για την σωστή απάντηση.
+     *
      * @return Επιστρέφει την σωστή απάντηση.
      */
     public String correctAnswer() {
-        return this.answers.get(this.answers.size()-1);
+        return this.answers.get(this.answers.size() - 1);
     }
 }

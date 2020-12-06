@@ -1,6 +1,7 @@
 // imports
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
@@ -22,42 +23,33 @@ public class AllQuestions {
      */
     public void fillQuestions() {
         String line = "";
-        String splitBy = ",";
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(System.getProperty("user.dir") + "/src/QuizQuestions.csv"));
-            br.readLine();
-            while ((line = br.readLine()) != null)   //returns a Boolean value
-            {
-                String[] data = line.split(splitBy);    // use comma as separator
-                ArrayList<String> answers = new ArrayList<>();
-                answers.add(data[2]);
-                answers.add(data[3]);
-                answers.add(data[4]);
-                answers.add(data[5]);
-                answers.add(data[6]);
-                SingleQuestion question = new SingleQuestion(data[1], answers, data[0]);
-                newEntry(data[0], question);
-
-            }
+        String fileDir = System.getProperty("user.dir") + "/QuizQuestions.csv";
+        if( !(new File(fileDir).exists()) ) {
+            fileDir = System.getProperty("user.dir") + "/src/QuizQuestions.csv";
         }
-        catch(IOException e) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(fileDir));
+            br.readLine();                          // Προσπέρασε την πρώτη γραμμή του αρχείου
+            while ((line = br.readLine()) != null) {
+                newEntry(new SingleQuestion(line));
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
      * Στην μέθοδο newEntry η οποία δεν επιστρέφει κάποια τιμή (void),
-     * @param category
      * @param entry
      */
-    private void newEntry(String category, SingleQuestion entry) {
+    private void newEntry(SingleQuestion entry) {
 
-        if(questions.containsKey(category))
-            questions.get(category).add(entry);
+        if(questions.containsKey(entry.getCategory()))
+            questions.get(entry.getCategory()).add(entry);
         else {
             ArrayList<SingleQuestion> temp= new ArrayList<>();
             temp.add(entry);
-            questions.put(category, temp);
+            questions.put(entry.getCategory(), temp);
         }
     }
 
@@ -67,9 +59,9 @@ public class AllQuestions {
      * @return
      */
     public SingleQuestion getRandomQuestion(String category) {
-        Random randomNumber = new Random();
         ArrayList<SingleQuestion> randomQuestionCategory = this.questions.get(category);
-        SingleQuestion randomQuestion = randomQuestionCategory.get(randomNumber.nextInt(randomQuestionCategory.size()));
+        Collections.shuffle(randomQuestionCategory);
+        SingleQuestion randomQuestion = randomQuestionCategory.get(0);
         questions.get(category).remove(randomQuestion);
         return randomQuestion;
     }
