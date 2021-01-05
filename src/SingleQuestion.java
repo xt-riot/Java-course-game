@@ -1,5 +1,3 @@
-// imports
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -19,6 +17,7 @@ public class SingleQuestion {
 
     /**
      * Ο κατασκευαστής της κλάσης.
+     * Δηλώνουμε τι περιέχουν το ArrayList με βάση τον αρχείο .CSV.
      */
     public SingleQuestion(String line) {
         // CODE to get question from a file(path) in the designated line(questionNumber)
@@ -37,16 +36,16 @@ public class SingleQuestion {
     }
 
     /**
-     * Για αργότερα θα το χρησιμοποιήσουμε.
+     * Μέθοδος που θα χρησιμοποιηθεί αργότερα.
      *
-     * @return
+     * @return Επιστρέφει την εικόνα.
      */
     public boolean getHasTheQuestionImage() {
         return this.hasTheQuestionImage;
     }
 
     /**
-     * Μία λίστα απο Strings που περιέχει τις απαντήσεις.
+     * Μέθοδος για τις απαντήσεις.
      *
      * @return Επιστρέφει την απάντηση.
      */
@@ -55,7 +54,7 @@ public class SingleQuestion {
     }
 
     /**
-     * Επιλέγει την ερώτηση.
+     * Μέθοδος που επιλέγει την ερώτηση απο το αρχείο.
      *
      * @return Επιστρέφει την ερώτηση που επιλέχτηκε.
      */
@@ -64,7 +63,7 @@ public class SingleQuestion {
     }
 
     /**
-     * Επιλέγει την κατηγορία.
+     * Μέθοδος που επιλέγει την κατηγορία.
      *
      * @return Επιστρέφει την κατηφορία που επιλέχτηκε.
      */
@@ -73,7 +72,7 @@ public class SingleQuestion {
     }
 
     /**
-     * Τυπώνει το αντικείμενο της κλάσης και με τις παραμέτρους της.
+     * Μέθοδος που τυπώνει το αντικείμενο της κλάσης και με τις παραμέτρους της.
      */
     public void printObject() {
         System.out.println("Category: " + this.category);
