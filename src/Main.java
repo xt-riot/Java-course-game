@@ -1,5 +1,5 @@
+import java.io.IOException;
 import java.util.Random;
-import java.util.Scanner;
 
 
 /**
@@ -8,7 +8,11 @@ import java.util.Scanner;
  *
  */
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        String filename = "storedData.csv";
+        new StoredData(filename);
+
         Random rant = new Random();
         int rounds = rant.nextInt(5) + 1;
         int questions = rant.nextInt(5) + 1;
