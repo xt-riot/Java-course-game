@@ -38,37 +38,42 @@ class GameRounds {
     public int RandomRound() {
         Random temp = new Random();
         roundIndex = temp.nextInt(gameRounds.size());
-        switch(roundIndex) {
-            case(0):
-                System.out.println("Round: Correct answer.");
-                System.out.println("If you guess the correct answer, you will get 1000 points.");
-                System.out.println();
-                break;
-            case(1):
-                System.out.println("Round: Stop the counter.");
-                System.out.println("There is a counter. Every player that answers correctly");
-                System.out.println("earns points proportional to the time left in the counter.");
-                break;
-            case(2):
-                System.out.println("Round: Betting.");
-                System.out.println("If you guess the correct answer, you will get the bet points,");
-                System.out.println("otherwise you will lose them.");
-                System.out.println();
-                break;
-            case(3):
-                System.out.println("Round: Fast answer.");
-                System.out.println("The first player to answer correctly earns 1000 points");
-                System.out.println("while the second 500.");
-                break;
-            case(4):
-                System.out.println("Round: Thermometer:");
-                System.out.println("The first player to answer 5 questions correctly");
-                System.out.println("earns 5000 points.");
-                break;
-        }
+
         return roundIndex;
     }
 
+    public String getRoundText(int round) {
+        String asd = "";
+        switch(roundIndex) {
+            case(0):
+                asd += ("Round: Correct answer.");
+                asd += ("If you guess the correct answer, you will get 1000 points.");
+                //System.out.println();
+                break;
+            case(1):
+                asd += ("Round: Stop the counter.");
+                asd += ("There is a counter. Every player that answers correctly");
+                asd += ("earns points proportional to the time left in the counter.");
+                break;
+            case(2):
+                asd += ("Round: Betting.");
+                asd += ("If you guess the correct answer, you will get the bet points,");
+                asd += ("otherwise you will lose them.");
+                //System.out.println();
+                break;
+            case(3):
+                asd += ("Round: Fast answer.");
+                asd += ("The first player to answer correctly earns 1000 points");
+                asd += ("while the second 500.");
+                break;
+            case(4):
+                asd += ("Round: Thermometer:");
+                asd += ("The first player to answer 5 questions correctly");
+                asd += ("earns 5000 points.");
+                break;
+        }
+        return asd;
+    }
     public int getScore() {
 
         return score;
@@ -80,17 +85,19 @@ public class GameEnvironment {
     private int questionCount;
     private int playerCount;
     private int round;
+    private GUI gui;
     private ArrayList<String> categories;
     private ArrayList<Player> allPlayers;
     private AllQuestions allQuestions;
 
-    public GameEnvironment(int rounds, int questions, int players) {
+    public GameEnvironment(int players, int rounds, int questions, GUI id) {
         allQuestions = new AllQuestions();
         allQuestions.fillQuestions();
 
         roundCount = rounds;
         questionCount = questions;
         playerCount = players;
+
 
         categories = new ArrayList<>();
         String[] temp = allQuestions.getAllCategories();
@@ -99,13 +106,10 @@ public class GameEnvironment {
                 categories.add(s);
             }
         }
-
+        gui = id;
         allPlayers = new ArrayList<>();
-        for (int i = 0; i < playerCount; i++) {
-            Scanner userInput = new Scanner(System.in);
-            System.out.println("Enter name of player" + (i + 1) + " : ");
-            String userName = userInput.nextLine();
-            allPlayers.add(new Player(userName));
+        for(int i = 0; i<playerCount; i++) {
+            allPlayers.add(new Player("Player"+i));
         }
     }
     public int getRoundCount() {
@@ -132,12 +136,16 @@ public class GameEnvironment {
     }
 
     public void nextRound() {
-        this.round = new GameRounds().RandomRound();
+        GameRounds asd = new GameRounds();
+        this.round = asd.RandomRound();
         if(round != 5) {
             for (int i = 0; i < questionCount; i++) {
                 SingleQuestion question = nextQuestion();
                 showQuestion(question);
-                allPlayers.get(0).setNewScore(question, 0, false); // CHANGE !!
+                System.out.println("Well");
+                gui.showRound(asd.getRoundText(round));
+
+                //allPlayers.get(0).setNewScore(question, 0, false); // CHANGE !!
             }
         }
         else {
@@ -174,5 +182,21 @@ public class GameEnvironment {
             System.out.println();
             allPlayer.getQuestionsAndResults();
         }
+    }
+
+    public void startGame() {
+        //gui.start();
+        //boolean start = gui.startGame();
+        //System.out.println(start);
+        //while(!start){ start = gui.startGame();System.out.println("Well2"); }
+        //System.out.println(round);
+        GameRounds asd = new GameRounds();
+        this.round = asd.RandomRound();
+        SingleQuestion questions[] = new SingleQuestion[2];
+        questions[0] = nextQuestion();
+        questions[1] = nextQuestion();
+        this.gui.prepare(questions);
+        //this.gui.next(asd.getRoundText(round));
+
     }
 }

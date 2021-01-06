@@ -1,3 +1,5 @@
+import java.util.logging.*;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
@@ -6,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GUI {
+    private static Logger dbg = Logger.getLogger(GUI.class.getName());
+    private GameEnvironment game;
     private JFrame frame;
     private JPanel topPanel;
     private JPanel midPanel;
@@ -28,8 +32,14 @@ public class GUI {
     private JLabel lBotEast;
     private JLabel lBotWest;
 
-    private JButton like;
-    private JButton dislike;
+    private JButton answerAplayerA;
+    private JButton answerBplayerA;
+    private JButton answerCplayerA;
+    private JButton answerDplayerA;
+    private JButton answerAplayerB;
+    private JButton answerBplayerB;
+    private JButton answerCplayerB;
+    private JButton answerDplayerB;
     private int players;
 
     public GUI() {
@@ -75,10 +85,78 @@ public class GUI {
 
         frame.setLocationRelativeTo(null);
 
+        answerAplayerA = new JButton();
+        answerAplayerA.setPreferredSize(new Dimension(100, 20));
+        answerAplayerA.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                asd();
+            }
+        });
+        answerBplayerA = new JButton();
+        answerBplayerA.setPreferredSize(new Dimension(100, 20));
+        answerBplayerA.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                asd();
+            }
+        });
+        answerCplayerA = new JButton();
+        answerCplayerA.setPreferredSize(new Dimension(100, 20));
+        answerCplayerA.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                asd();
+            }
+        });
+        answerDplayerA = new JButton();
+        answerDplayerA.setPreferredSize(new Dimension(100, 20));
+        answerDplayerA.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                asd();
+            }
+        });
+
+        answerAplayerB = new JButton();
+        answerAplayerB.setPreferredSize(new Dimension(100, 20));
+        answerAplayerB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                asd();
+            }
+        });
+        answerBplayerB = new JButton();
+        answerBplayerB.setPreferredSize(new Dimension(100, 20));
+        answerBplayerB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                asd();
+            }
+        });
+        answerCplayerB = new JButton();
+        answerCplayerB.setPreferredSize(new Dimension(100, 20));
+        answerCplayerB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                asd();
+            }
+        });
+        answerDplayerB = new JButton();
+        answerDplayerB.setPreferredSize(new Dimension(100, 20));
+        answerDplayerB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                asd();
+            }
+        });
+
+
     }
 
 
-    public int choosePlayers() {
+    public int choosePlayers(GameEnvironment id) {
+        this.game = id;
         label.setText("Welcome to Buizz! Quiz World rip-off.\nPlease choose the number of players:");
         topPanel.add(label, BorderLayout.CENTER);
 
@@ -102,6 +180,7 @@ public class GUI {
                 if(players==0) {
                     players = 2;
                     updatePlayers();
+
                 }
             }
         });
@@ -116,27 +195,40 @@ public class GUI {
         else label2.setText("You chose two players.");
         label2.setForeground(Color.RED);
 
-        JButton bContinue = new JButton("Continue.");
-        bContinue.setPreferredSize(new Dimension(100, 20));
-        bContinue.addActionListener(new ActionListener() {
+
+        JButton next = new JButton("Continue.");
+        next.setPreferredSize(new Dimension(100, 20));
+        next.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 label.setText("Buzz! Quiz world is about to begin with: " + players + " player(s).");
                 label.setForeground(Color.CYAN);
                 try {
                     Thread.sleep(1000);
+                    dbg.warning("Wiping");
                     wipeAll();
                     init();
+                    asd();
                 }
                 catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
             }
         });
-        botPanel.add(bContinue, BorderLayout.LINE_END);
+        botPanel.add(next, BorderLayout.LINE_END);
+    }
+    private void getPlayers() {
+        //GameEnvironment game = new GameEnvironment(players);
     }
 
-    private void wipeAll() {
+    public void choosePlayerName() {
+        for(int i = 0; i<players; i++) {
+            label.setText("Choose the name of player"+players+".");
+
+        }
+    }
+
+    public void wipeAll() {
         topPanel.removeAll();
         midPanel.removeAll();
         botPanel.removeAll();
@@ -177,6 +269,16 @@ public class GUI {
         lMidWest = new JLabel("Player 2 panel");
         pMidWest.add(lMidWest);
 
+        pMidEast.add(answerAplayerA, BorderLayout.LINE_END);
+        pMidEast.add(answerBplayerA, BorderLayout.LINE_END);
+        pMidEast.add(answerCplayerA, BorderLayout.LINE_END);
+        pMidEast.add(answerDplayerA, BorderLayout.LINE_END);
+
+        pMidWest.add(answerAplayerB, BorderLayout.LINE_END);
+        pMidWest.add(answerBplayerB, BorderLayout.LINE_END);
+        pMidWest.add(answerCplayerB, BorderLayout.LINE_END);
+        pMidWest.add(answerDplayerB, BorderLayout.LINE_END);
+
         pBotEast = new JPanel();
         pBotEast.setLayout(new FlowLayout(FlowLayout.LEADING));
         pBotEast.setBackground(Color.GREEN);
@@ -194,18 +296,98 @@ public class GUI {
         lBotWest = new JLabel("Player 2 panel");
         pBotWest.add(lBotWest);
 
+        JButton nxt = new JButton("Continue.");
+        nxt.setPreferredSize(new Dimension(100, 20));
+        nxt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                asd();
+            }
+        });
+
+        pBotEast.add(nxt, BorderLayout.LINE_END);
+        pBotWest.add(nxt, BorderLayout.LINE_END);
+
         frame.repaint();
 
     }
 
-    public void game() {
-
+    public boolean startGame() {
+        int counter = 3;
+        dbg.warning("Entering startGame");
+        while(counter > 0) {
+            try {
+                label.setText("The game starts in " + counter + "...");
+                Thread.sleep(1000);
+                counter--;
+            } catch (InterruptedException ex) {
+                dbg.severe(String.valueOf(ex));
+                Thread.currentThread().interrupt();
+            }
+        }
+        return true;
+        //label.setText("The game starts in " + counter + "...");
     }
     /**
      * setVisible when you are ready
      */
     public void start() {
         frame.setVisible(true);
+        //choosePlayers();
+    }
+    public void showRound(String asd){
+        dbg.info(asd);
+        label.setText("This round is:" + asd);
+        //frame.repaint();
+    }
+
+    public void next(String asd) {
+        //botPanel.setBackground(Color.RED);
+
+
+        label.setText(asd);
+        label.setForeground(Color.CYAN);
+        topPanel.add(label);
+        System.out.println(asd);
+        JButton nxt = new JButton("Continue.");
+        nxt.setPreferredSize(new Dimension(100, 20));
+        nxt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                asd();
+            }
+        });
+        botPanel.add(nxt, BorderLayout.LINE_END);
+        //frame.repaint();
+    }
+
+    private void asd() {
+        //wipeAll();
+        //init();
+        this.game.startGame();
+    }
+
+    public void prepare(SingleQuestion[] question) {
+
+        lTopEast.setText("Player 1 panel\n Category: \n" + question[0].getCategory());
+        lTopWest.setText("Player 2 panel\n Category: \n" + question[1].getCategory());
+
+        lMidEast.setText("Question: " + question[0].getQuestion());
+        lMidWest.setText("Question: " + question[1].getQuestion());
+
+        lBotEast.setText("Player 1 panel");
+        lBotWest.setText("Player 2 panel");
+
+        answerAplayerA.setText(question[0].getAnswers().get(0));
+        answerBplayerA.setText(question[0].getAnswers().get(1));
+        answerCplayerA.setText(question[0].getAnswers().get(2));
+        answerDplayerA.setText(question[0].getAnswers().get(3));
+
+        answerAplayerB.setText(question[1].getAnswers().get(0));
+        answerBplayerB.setText(question[1].getAnswers().get(1));
+        answerCplayerB.setText(question[1].getAnswers().get(2));
+        answerDplayerB.setText(question[1].getAnswers().get(3));
+
     }
 
 }
