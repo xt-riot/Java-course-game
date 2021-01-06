@@ -22,21 +22,21 @@ public class StoredData {
         BufferedReader br = new BufferedReader(new FileReader("storedData.csv"));
         if (br.readLine() == null) {
             System.out.println("Error");
-        }
+        }else {
+            //diaforetika dhmiourgw to arxeio storedData!
+            try {
+                PrintWriter writer = new PrintWriter(new FileWriter("storedData.csv",true));
 
-        //diaforetika dhmiourgw to arxeio storedData!
-        try {
-            PrintWriter writer = new PrintWriter(new File("storedData.csv"));
-
-            int i = 0;
-            while (i < data.length) {
-                writer.println(data[i]);
-                i++;
-            }
-            writer.close();
-        }catch (FileNotFoundException e) {
+                int i = 0;
+                while (i < data.length) {
+                    writer.println(data[i]);
+                    i++;
+                }
+                writer.close();
+            } catch (FileNotFoundException e) {
                 System.out.println("Error: " + e.getMessage());
             }
+        }
 
     }
 }
