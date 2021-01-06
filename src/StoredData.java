@@ -1,55 +1,42 @@
-
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class StoredData {
-    private String playerName;
-    private ArrayList<String> answers;
-    private String category;
 
+    /**
+     * Κατασκευαστής της κλάσης StoredData.
+     */
+    public StoredData() {
 
+    }
 
-    public StoredData(String filename) {
-        
+    /**
+     * Μέθοδος για να αποθηκεύει δεδομένα του παιχνιδιού.
+     * @param data πίνακας απο String.
+     * @throws IOException
+     */
+    public void saveData(String[] data) throws IOException {
 
+        //prwta na ele3xw ama uparxei arxeio
 
-        try {
-            Scanner reader = new Scanner(new File("out/production/Buzz/QuizQuestions.csv"));
-            PrintWriter writer = new PrintWriter(new File("storedData.csv"));
-            while (reader.hasNextLine()) {
-                String line = reader.nextLine();
-                String[] data = line.split(",");
-                this.answers = new ArrayList<>();
-
-
-                this.category = data[0];
-                //name = data[1];
-                answers.add(data[1]);
-
-                writer.println(data[0] + ", " +  data[1]);
-            }
-            writer.close();
-            reader.close();
-        } catch (FileNotFoundException ex) {
-            System.out.println("Error: " + ex.getMessage());
+        BufferedReader br = new BufferedReader(new FileReader("storedData.csv"));
+        if (br.readLine() == null) {
+            System.out.println("Error");
         }
 
+        //diaforetika dhmiourgw to arxeio storedData!
+        try {
+            PrintWriter writer = new PrintWriter(new File("storedData.csv"));
 
+            int i = 0;
+            while (i < data.length) {
+                writer.println(data[i]);
+                i++;
+            }
+            writer.close();
+        }catch (FileNotFoundException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
 
     }
-
-    public String getCategory() {
-        return this.category;
-    }
-
-    public String correctAnswer() {
-        return this.answers.get(this.answers.size() - 1);
-    }
-
-    public String getName() {
-        return this.playerName;
-    }
-
 }
