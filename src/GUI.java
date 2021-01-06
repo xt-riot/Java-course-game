@@ -18,13 +18,6 @@ public class GUI {
     private JPanel midPanel;
     private JPanel botPanel;
 
-    private JPanel pTopWest;
-    private JPanel pTopEast;
-    private JPanel pMidWest;
-    private JPanel pMidEast;
-    private JPanel pBotWest;
-    private JPanel pBotEast;
-
     private JPanel[][] panels;
     private JLabel[][] labels;
     private JButton[][] answerButtons;
@@ -88,7 +81,7 @@ public class GUI {
         panels[0][0] = topPanel;
         panels[1] = new JPanel[players+1];
         panels[1][0] = midPanel;
-        panels[1][0].setLayout(new FlowLayout(FlowLayout.LEADING, 00, 10));
+        panels[1][0].setLayout(new FlowLayout(FlowLayout.LEADING, 0, 10));
         panels[2] = new JPanel[players+1];
         panels[2][0] = botPanel;
         Color[] tempcolor = {Color.GREEN, Color.RED};
@@ -121,13 +114,10 @@ public class GUI {
                         int o = i-1;
                         answerButtons[i-1][k] = new JButton();
                         answerButtons[i-1][k].setPreferredSize(new Dimension(100, 20));
-                        answerButtons[i-1][k].addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent actionEvent) {
-                                answers[o] = p;
-                                System.out.println(p);
-                                answersReady();
-                            }
+                        answerButtons[i-1][k].addActionListener(actionEvent -> {
+                            answers[o] = p;
+                            System.out.println(p);
+                            answersReady();
                         });
                         panels[j][i].add(answerButtons[i-1][k]);
                     }
@@ -145,24 +135,18 @@ public class GUI {
 
         JButton player1 = new JButton("One player");
         player1.setPreferredSize(new Dimension(200, 100));
-        player1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if(players==0) {
-                    players = 1;
-                    updatePlayers();
-                }
+        player1.addActionListener(actionEvent -> {
+            if(players!=1) {
+                players = 1;
+                updatePlayers();
             }
         });
         JButton player2 = new JButton("Two players");
         player2.setPreferredSize(new Dimension(200, 100));
-        player2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if(players==0) {
-                    players = 2;
-                    updatePlayers();
-                }
+        player2.addActionListener(actionEvent -> {
+            if(players!=2) {
+                players = 2;
+                updatePlayers();
             }
         });
         midPanel.setLayout(new FlowLayout(FlowLayout.LEADING, 133, 80));
@@ -171,6 +155,10 @@ public class GUI {
     }
 
     private void updatePlayers() {
+        for(Component comp : botPanel.getComponents())
+            if(comp instanceof JButton)
+                botPanel.remove(comp);
+        botPanel.repaint();
         if(players==1) {
             label2.setText("You chose one player.");
         }
@@ -189,21 +177,18 @@ public class GUI {
 
         JButton next = new JButton("Continue.");
         next.setPreferredSize(new Dimension(100, 20));
-        next.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                label.setText("Buzz! Quiz world is about to begin with: " + players + " player(s).");
-                label.setForeground(Color.CYAN);
-                try {
-                    Thread.sleep(1000);
-                    dbg.warning("Wiping");
-                    wipeAll();
-                    setFrameVisible(false);
-                    choosePlayerName();
-                }
-                catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
+        next.addActionListener(actionEvent -> {
+            label.setText("Buzz! Quiz world is about to begin with: " + players + " player(s).");
+            label.setForeground(Color.CYAN);
+            try {
+                Thread.sleep(1000);
+                dbg.warning("Wiping");
+                wipeAll();
+                setFrameVisible(false);
+                choosePlayerName();
+            }
+            catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
             }
         });
         botPanel.add(next, BorderLayout.LINE_END);
@@ -251,9 +236,7 @@ public class GUI {
     private void answersReady() {
         boolean send = false;
         for(int i = 0; i<allPlayers.size(); i++) {
-            if(answers[i] != -1) {
-                send = true;
-            } else send = false;
+            send = answers[i] != -1;
         }
         if(send) {
             game.ready(answers);
@@ -265,11 +248,7 @@ public class GUI {
         game.newQuestion();
     }
 
-    private void asd() {
-        this.game.newQuestion();
-    }
     private void startG() {
-        System.out.println(allPlayers.size());
         this.game.setPlayers(allPlayers);
         this.game.startGame();
     }

@@ -4,8 +4,8 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        String filename = "storedData.csv";
-        new StoredData(filename);
+        //String filename = "storedData.csv";
+        //new StoredData(filename);
 
         Random rant = new Random();
         int rounds = rant.nextInt(2) + 1;
