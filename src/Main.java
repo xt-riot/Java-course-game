@@ -7,7 +7,7 @@ public class Main {
         int questions = rant.nextInt(2) + 1;
         GUI gui = new GUI();
         GameEnvironment game = new GameEnvironment(rounds, questions);
-        gui.start();
+        gui.setFrameVisible(true);
         game.setGUI(gui);
         gui.choosePlayers(game);
         //

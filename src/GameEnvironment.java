@@ -167,16 +167,14 @@ public class GameEnvironment {
     public void setGUI(GUI id) {
         this.gui = id;
     }
-    public void setPlayers(int players) {
-        this.playerCount = players;
-        for(int i = 0; i<playerCount; i++) {
-            allPlayers.add(new Player("Player"+i));
-        }
+    public void setPlayers(ArrayList<Player> p) {
+        allPlayers = p;
+        playerCount = allPlayers.size();
     }
     public void startGame() {
         this.round = new GameRounds().RandomRound();
-        questions[0] = nextQuestion();
-        questions[1] = nextQuestion();
+        for(int i = 0; i<playerCount; i++)
+            questions[i] = nextQuestion();
         gui.prepare(questions);
     }
 
@@ -190,15 +188,15 @@ public class GameEnvironment {
     public void newRound() {
         this.roundCount--;
         this.round = new GameRounds().RandomRound();
-        questions[0] = nextQuestion();
-        questions[1] = nextQuestion();
+        for(int i = 0; i<playerCount; i++)
+            questions[i] = nextQuestion();
         gui.prepare(questions);
     }
     public void newQuestion() {
         this.questionCount--;
         if(questionCount > 0) {
-            questions[0] = nextQuestion();
-            questions[1] = nextQuestion();
+            for(int i = 0; i<playerCount; i++)
+                questions[i] = nextQuestion();
             gui.prepare(questions);
         } else if(roundCount > 0) {
             this.round = new GameRounds().RandomRound();
