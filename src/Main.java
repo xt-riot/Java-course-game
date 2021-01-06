@@ -6,10 +6,9 @@ public class Main {
         int rounds = rant.nextInt(2) + 1;
         int questions = rant.nextInt(2) + 1;
         GUI gui = new GUI();
-        GameEnvironment game = new GameEnvironment(1, 2, questions, gui);
-        //game.startGame();
-
+        GameEnvironment game = new GameEnvironment(rounds, questions);
         gui.start();
+        game.setGUI(gui);
         gui.choosePlayers(game);
         //
         /*

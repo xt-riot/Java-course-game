@@ -22,6 +22,10 @@ public class GUI {
     private JPanel pBotWest;
     private JPanel pBotEast;
 
+    private JPanel[][] panels;
+    private JLabel[][] labels;
+    private JButton[][] answerButtons;
+
     private JLabel label;
     private JLabel label1;
     private JLabel label2;
@@ -41,6 +45,7 @@ public class GUI {
     private JButton answerCplayerB;
     private JButton answerDplayerB;
     private int players;
+    private int[] answers;
 
     public GUI() {
 
@@ -84,13 +89,17 @@ public class GUI {
 
 
         frame.setLocationRelativeTo(null);
+        answers = new int[2];
+        answers[0] = -1;
+        answers[1] = -1;
 
         answerAplayerA = new JButton();
         answerAplayerA.setPreferredSize(new Dimension(100, 20));
         answerAplayerA.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                asd();
+                answers[0] = 1;
+                answersReady();
             }
         });
         answerBplayerA = new JButton();
@@ -98,7 +107,8 @@ public class GUI {
         answerBplayerA.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                asd();
+                answers[0] = 2;
+                answersReady();
             }
         });
         answerCplayerA = new JButton();
@@ -106,7 +116,8 @@ public class GUI {
         answerCplayerA.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                asd();
+                answers[0] = 3;
+                answersReady();
             }
         });
         answerDplayerA = new JButton();
@@ -114,7 +125,8 @@ public class GUI {
         answerDplayerA.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                asd();
+                answers[0] = 4;
+                answersReady();
             }
         });
 
@@ -123,7 +135,8 @@ public class GUI {
         answerAplayerB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                asd();
+                answers[1] = 1;
+                answersReady();
             }
         });
         answerBplayerB = new JButton();
@@ -131,7 +144,8 @@ public class GUI {
         answerBplayerB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                asd();
+                answers[1] = 2;
+                answersReady();
             }
         });
         answerCplayerB = new JButton();
@@ -139,7 +153,8 @@ public class GUI {
         answerCplayerB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                asd();
+                answers[1] = 3;
+                answersReady();
             }
         });
         answerDplayerB = new JButton();
@@ -147,15 +162,88 @@ public class GUI {
         answerDplayerB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                asd();
+                answers[1] = 4;
+                answersReady();
             }
         });
-
+        panels = new JPanel[3][];
+        labels = new JLabel[3][];
 
     }
 
+    private void test() {
+        //frame.removeAll();
+        panels[0] = new JPanel[players+1];
+        panels[0][0] = topPanel;
+        panels[1] = new JPanel[players+1];
+        panels[1][0] = midPanel;
+        panels[1][0].setLayout(new FlowLayout(FlowLayout.LEADING, 00, 10));
+        panels[2] = new JPanel[players+1];
+        panels[2][0] = botPanel;
+        Color[] tempcolor = {Color.GREEN, Color.RED};
+        String[] temp = {BorderLayout.PAGE_START, BorderLayout.CENTER, BorderLayout.PAGE_END};
+        labels[0] = new JLabel[3];
+        labels[0][0] = label;
 
-    public int choosePlayers(GameEnvironment id) {
+        labels[1] = new JLabel[3];
+        labels[1][0] = label1;
+
+        labels[2] = new JLabel[3];
+        labels[2][0] = label2;
+
+        System.out.println(labels[0].length);
+        for(int j = 0; j<3; j++) {
+            //panels[j] = new JPanel[players];
+            //System.out.println(panels[j].length);
+            for ( int i = 1; i <= players; i++) {
+                panels[j][i] = new JPanel();
+                panels[j][i].setLayout(new FlowLayout(FlowLayout.LEADING));
+                panels[j][i].setBackground(tempcolor[i-1]);
+                panels[j][i].setPreferredSize(new Dimension(panels[j][0].getSize().width/players, panels[j][0].getSize().height));
+                panels[j][0].add(panels[j][i]);
+                labels[j][i] = new JLabel("Player" + i + " panel.");
+                panels[j][i].add(labels[j][i]);
+
+
+                if(j == 1) {
+                    answerButtons[i-1] = new JButton[4];
+                    for(int k = 0; k<4; k++) {
+
+                        int p = k;
+                        int o = i-1;
+                        answerButtons[i-1][k] = new JButton();
+                        answerButtons[i-1][k].setPreferredSize(new Dimension(100, 20));
+                        answerButtons[i-1][k].addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent actionEvent) {
+                                answers[o] = p;
+                                answersReady();
+                            }
+                        });
+                        panels[j][i].add(answerButtons[i-1][k]);
+                    }
+                }
+
+
+            }
+            frame.add(panels[j][0], temp[j]);
+        }
+        /*panels[1][1].add(answerAplayerA, BorderLayout.LINE_END);
+        panels[1][1].add(answerBplayerA, BorderLayout.LINE_END);
+        panels[1][1].add(answerCplayerA, BorderLayout.LINE_END);
+        panels[1][1].add(answerDplayerA, BorderLayout.LINE_END);
+
+        if(players == 2) {
+
+            panels[1][2].add(answerAplayerB, BorderLayout.LINE_END);
+            panels[1][2].add(answerBplayerB, BorderLayout.LINE_END);
+            panels[1][2].add(answerCplayerB, BorderLayout.LINE_END);
+            panels[1][2].add(answerDplayerB, BorderLayout.LINE_END);
+        }//*/
+        frame.repaint();
+    }
+
+    public void choosePlayers(GameEnvironment id) {
         this.game = id;
         label.setText("Welcome to Buizz! Quiz World rip-off.\nPlease choose the number of players:");
         topPanel.add(label, BorderLayout.CENTER);
@@ -180,19 +268,24 @@ public class GUI {
                 if(players==0) {
                     players = 2;
                     updatePlayers();
-
                 }
             }
         });
         midPanel.setLayout(new FlowLayout(FlowLayout.LEADING, 133, 80));
         midPanel.add(player1, BorderLayout.CENTER);
         midPanel.add(player2, BorderLayout.CENTER);
-        return players;
     }
 
     private void updatePlayers() {
-        if(players==1) label2.setText("You chose one player.");
-        else label2.setText("You chose two players.");
+        if(players==1) {
+            label2.setText("You chose one player.");
+        }
+        else {
+            label2.setText("You chose two players.");
+        }
+        answerButtons = new JButton[players][];
+        panels = new JPanel[3][players];
+        labels = new JLabel[3][players];
         label2.setForeground(Color.RED);
 
 
@@ -207,8 +300,8 @@ public class GUI {
                     Thread.sleep(1000);
                     dbg.warning("Wiping");
                     wipeAll();
-                    init();
-                    asd();
+                    test();
+                    startG();
                 }
                 catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
@@ -216,9 +309,6 @@ public class GUI {
             }
         });
         botPanel.add(next, BorderLayout.LINE_END);
-    }
-    private void getPlayers() {
-        //GameEnvironment game = new GameEnvironment(players);
     }
 
     public void choosePlayerName() {
@@ -234,121 +324,57 @@ public class GUI {
         botPanel.removeAll();
         frame.repaint();
     }
-
-    public void init() {
-        pTopEast = new JPanel();
-        pTopEast.setLayout(new FlowLayout(FlowLayout.LEADING));
-        pTopEast.setBackground(Color.GREEN);
-        pTopEast.setPreferredSize(new Dimension(topPanel.getSize().width/2, topPanel.getSize().height));
-        topPanel.add(pTopEast);
-
-        pTopWest = new JPanel();
-        pTopWest.setLayout(new FlowLayout(FlowLayout.LEADING));
-        pTopWest.setBackground(Color.RED);
-        pTopWest.setPreferredSize(new Dimension(topPanel.getSize().width/2, topPanel.getSize().height));
-        topPanel.add(pTopWest);
-        lTopEast = new JLabel("Player 1 panel");
-        pTopEast.add(lTopEast);
-        lTopWest = new JLabel("Player 2 panel");
-        pTopWest.add(lTopWest);
-
-        pMidEast = new JPanel();
-        pMidEast.setLayout(new FlowLayout(FlowLayout.LEADING));
-        pMidEast.setBackground(Color.GREEN);
-        pMidEast.setPreferredSize(new Dimension(midPanel.getSize().width/2, midPanel.getSize().height));
-        midPanel.setLayout(new FlowLayout(FlowLayout.LEADING,0,10));
-        midPanel.add(pMidEast);
-
-        pMidWest = new JPanel();
-        pMidWest.setLayout(new FlowLayout(FlowLayout.LEADING));
-        pMidWest.setBackground(Color.RED);
-        pMidWest.setPreferredSize(new Dimension(midPanel.getSize().width/2, midPanel.getSize().height));
-        midPanel.add(pMidWest);
-        lMidEast = new JLabel("Player 1 panel");
-        pMidEast.add(lMidEast);
-        lMidWest = new JLabel("Player 2 panel");
-        pMidWest.add(lMidWest);
-
-        pMidEast.add(answerAplayerA, BorderLayout.LINE_END);
-        pMidEast.add(answerBplayerA, BorderLayout.LINE_END);
-        pMidEast.add(answerCplayerA, BorderLayout.LINE_END);
-        pMidEast.add(answerDplayerA, BorderLayout.LINE_END);
-
-        pMidWest.add(answerAplayerB, BorderLayout.LINE_END);
-        pMidWest.add(answerBplayerB, BorderLayout.LINE_END);
-        pMidWest.add(answerCplayerB, BorderLayout.LINE_END);
-        pMidWest.add(answerDplayerB, BorderLayout.LINE_END);
-
-        pBotEast = new JPanel();
-        pBotEast.setLayout(new FlowLayout(FlowLayout.LEADING));
-        pBotEast.setBackground(Color.GREEN);
-        pBotEast.setPreferredSize(new Dimension(botPanel.getSize().width/2, botPanel.getSize().height));
-        botPanel.setLayout(new FlowLayout(FlowLayout.LEADING,0,10));
-        botPanel.add(pBotEast);
-
-        pBotWest = new JPanel();
-        pBotWest.setLayout(new FlowLayout(FlowLayout.LEADING));
-        pBotWest.setBackground(Color.RED);
-        pBotWest.setPreferredSize(new Dimension(botPanel.getSize().width/2, botPanel.getSize().height));
-        botPanel.add(pBotWest);
-        lBotEast = new JLabel("Player 1 panel");
-        pBotEast.add(lBotEast);
-        lBotWest = new JLabel("Player 2 panel");
-        pBotWest.add(lBotWest);
-
-        JButton nxt = new JButton("Continue.");
-        nxt.setPreferredSize(new Dimension(100, 20));
-        nxt.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                asd();
-            }
-        });
-
-        pBotEast.add(nxt, BorderLayout.LINE_END);
-        pBotWest.add(nxt, BorderLayout.LINE_END);
-
-        frame.repaint();
-
-    }
-
-    public boolean startGame() {
-        int counter = 3;
-        dbg.warning("Entering startGame");
-        while(counter > 0) {
-            try {
-                label.setText("The game starts in " + counter + "...");
-                Thread.sleep(1000);
-                counter--;
-            } catch (InterruptedException ex) {
-                dbg.severe(String.valueOf(ex));
-                Thread.currentThread().interrupt();
-            }
-        }
-        return true;
-        //label.setText("The game starts in " + counter + "...");
-    }
     /**
      * setVisible when you are ready
      */
     public void start() {
         frame.setVisible(true);
-        //choosePlayers();
-    }
-    public void showRound(String asd){
-        dbg.info(asd);
-        label.setText("This round is:" + asd);
-        //frame.repaint();
     }
 
-    public void next(String asd) {
-        //botPanel.setBackground(Color.RED);
+    public void prepare(SingleQuestion[] question) {
+
+        for(int i = 1; i<= players; i++) {
+            labels[0][i].setText("Player"+i+" panel\n Category: \n" + question[i-1].getCategory());
+            labels[1][i].setText("Question: " + question[i-1].getQuestion());
+            labels[2][i].setText("Player"+i+" panel");
+            for(int k = 0; k<4; k++)
+                answerButtons[i-1][k].setText(question[i-1].getAnswers().get(k));
+        }
+
+        /*answerAplayerA.setText(question[0].getAnswers().get(0));
+        answerBplayerA.setText(question[0].getAnswers().get(1));
+        answerCplayerA.setText(question[0].getAnswers().get(2));
+        answerDplayerA.setText(question[0].getAnswers().get(3));
+
+        if(players == 2) {
+            answerAplayerB.setText(question[1].getAnswers().get(0));
+            answerBplayerB.setText(question[1].getAnswers().get(1));
+            answerCplayerB.setText(question[1].getAnswers().get(2));
+            answerDplayerB.setText(question[1].getAnswers().get(3));
+        }//*/
+
+    }
 
 
-        label.setText(asd);
+    private void answersReady() {
+        boolean send = false;
+        for(int i = 0; i<players; i++) {
+            if(answers[i] > 0 && answers[i] < 5) {
+                send = true;
+            } else send = false;
+        }
+        if(send) {
+            dbg.info("" + answers[0] + " // " + answers[1]);
+            game.ready(answers);
+            answers[0] = -1;
+            answers[1] = -1;
+            game.newQuestion();
+        }
+    }
+    public void next() {
+        label.setText("New round");
         label.setForeground(Color.CYAN);
-        topPanel.add(label);
-        System.out.println(asd);
+
         JButton nxt = new JButton("Continue.");
         nxt.setPreferredSize(new Dimension(100, 20));
         nxt.addActionListener(new ActionListener() {
@@ -358,36 +384,27 @@ public class GUI {
             }
         });
         botPanel.add(nxt, BorderLayout.LINE_END);
-        //frame.repaint();
     }
 
     private void asd() {
-        //wipeAll();
-        //init();
+        this.game.newQuestion();
+    }
+    private void startG() {
+        System.out.println(players);
+        this.game.setPlayers(players);
         this.game.startGame();
     }
 
-    public void prepare(SingleQuestion[] question) {
-
-        lTopEast.setText("Player 1 panel\n Category: \n" + question[0].getCategory());
-        lTopWest.setText("Player 2 panel\n Category: \n" + question[1].getCategory());
-
-        lMidEast.setText("Question: " + question[0].getQuestion());
-        lMidWest.setText("Question: " + question[1].getQuestion());
-
-        lBotEast.setText("Player 1 panel");
-        lBotWest.setText("Player 2 panel");
-
-        answerAplayerA.setText(question[0].getAnswers().get(0));
-        answerBplayerA.setText(question[0].getAnswers().get(1));
-        answerCplayerA.setText(question[0].getAnswers().get(2));
-        answerDplayerA.setText(question[0].getAnswers().get(3));
-
-        answerAplayerB.setText(question[1].getAnswers().get(0));
-        answerBplayerB.setText(question[1].getAnswers().get(1));
-        answerCplayerB.setText(question[1].getAnswers().get(2));
-        answerDplayerB.setText(question[1].getAnswers().get(3));
-
+    public void endOfGame() {
+        labels[0][0].setText("End of game");
+        panels[0][0].removeAll();
+        panels[0][0].add(labels[0][0]);
+        for(int i = 1; i<=players; i++) {
+            labels[0][i].setText(game.printTotalScore(i-1));
+            panels[1][i].removeAll();
+            panels[1][0].add(panels[1][i]);
+            panels[1][i].add(labels[0][i]);
+        }
+        frame.repaint();
     }
-
 }

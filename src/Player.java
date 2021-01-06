@@ -92,15 +92,15 @@ public class Player {
      * @param question SingleQuestion object - η ερώτηση που δόθηκε στον παίχτη
      * @param newScore Integer - Οι πόντοι που θα προστεθούν στους συνολικούς πόντους του παίχτη
      */
-    public void setNewScore(SingleQuestion question, int newScore, boolean isBet) {
-        int lastAnswer = this.getAnswer();
+    public void setNewScore(SingleQuestion question, int newScore, int answer) {
+        //int lastAnswer = this.getAnswer();
         String tempString = "You are incorrect. The correct answer is: " + question.correctAnswer() + "\n\n";
-        if (question.correctAnswer().equals(question.getAnswers().get(lastAnswer))) {
+        if (question.correctAnswer().equals(question.getAnswers().get(answer))) {
             this.score += newScore;
             tempString = "You are correct!\n\n";
-        } else if (isBet) this.score -= newScore;
+        }
         System.out.println(tempString);
-        questionsAndResult.addNewAnsweredQuestion(question, question.getAnswers().get(lastAnswer));
+        questionsAndResult.addNewAnsweredQuestion(question, question.getAnswers().get(answer));
     }
 
     /**

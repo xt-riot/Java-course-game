@@ -86,18 +86,19 @@ public class GameEnvironment {
     private int playerCount;
     private int round;
     private GUI gui;
+    private SingleQuestion questions[];
     private ArrayList<String> categories;
     private ArrayList<Player> allPlayers;
     private AllQuestions allQuestions;
 
-    public GameEnvironment(int players, int rounds, int questions, GUI id) {
+    public GameEnvironment(int rounds, int noQuestions) {
         allQuestions = new AllQuestions();
         allQuestions.fillQuestions();
 
         roundCount = rounds;
-        questionCount = questions;
-        playerCount = players;
-
+        questionCount = noQuestions;
+        playerCount = -1;
+        this.questions = new SingleQuestion[2];
 
         categories = new ArrayList<>();
         String[] temp = allQuestions.getAllCategories();
@@ -106,11 +107,7 @@ public class GameEnvironment {
                 categories.add(s);
             }
         }
-        gui = id;
         allPlayers = new ArrayList<>();
-        for(int i = 0; i<playerCount; i++) {
-            allPlayers.add(new Player("Player"+i));
-        }
     }
     public int getRoundCount() {
         return roundCount;
@@ -122,6 +119,9 @@ public class GameEnvironment {
     private String getRandomCategory() {
         Random temp = new Random();
         int random = temp.nextInt( categories.size() );
+
+        while(!(allQuestions.getCategoryQuestions(categories.get(random)).size() > 0))
+            random = temp.nextInt( categories.size() );
         return categories.get(random);
     }
 
@@ -133,27 +133,6 @@ public class GameEnvironment {
         System.out.println("C) " + question.getAnswers().get(2));
         System.out.println("D) " + question.getAnswers().get(3));
 
-    }
-
-    public void nextRound() {
-        GameRounds asd = new GameRounds();
-        this.round = asd.RandomRound();
-        if(round != 5) {
-            for (int i = 0; i < questionCount; i++) {
-                SingleQuestion question = nextQuestion();
-                showQuestion(question);
-                System.out.println("Well");
-                gui.showRound(asd.getRoundText(round));
-
-                //allPlayers.get(0).setNewScore(question, 0, false); // CHANGE !!
-            }
-        }
-        else {
-            int correctAnswer = 0;
-            while(correctAnswer<5) {
-                nextQuestion();
-            }
-        }
     }
 
     public SingleQuestion nextQuestion() {
@@ -174,7 +153,7 @@ public class GameEnvironment {
         }
     }
 
-    public void printTotalScore() {
+    public String printTotalScore(int number) {
         System.out.println();
         System.out.println("Total score of:");
         for (Player allPlayer : allPlayers) {
@@ -182,21 +161,51 @@ public class GameEnvironment {
             System.out.println();
             allPlayer.getQuestionsAndResults();
         }
+        return "Total score of player"+number+": " + allPlayers.get(number).getScore();
     }
 
+    public void setGUI(GUI id) {
+        this.gui = id;
+    }
+    public void setPlayers(int players) {
+        this.playerCount = players;
+        for(int i = 0; i<playerCount; i++) {
+            allPlayers.add(new Player("Player"+i));
+        }
+    }
     public void startGame() {
-        //gui.start();
-        //boolean start = gui.startGame();
-        //System.out.println(start);
-        //while(!start){ start = gui.startGame();System.out.println("Well2"); }
-        //System.out.println(round);
-        GameRounds asd = new GameRounds();
-        this.round = asd.RandomRound();
-        SingleQuestion questions[] = new SingleQuestion[2];
+        this.round = new GameRounds().RandomRound();
         questions[0] = nextQuestion();
         questions[1] = nextQuestion();
-        this.gui.prepare(questions);
-        //this.gui.next(asd.getRoundText(round));
+        gui.prepare(questions);
+    }
 
+    public void ready(int[] answer) {
+        for(int i = 0; i<playerCount; i++) {
+            allPlayers.get(i).setNewScore(questions[i], 1000, answer[i]);
+        }
+        gui.next();
+    }
+
+    public void newRound() {
+        this.roundCount--;
+        this.round = new GameRounds().RandomRound();
+        questions[0] = nextQuestion();
+        questions[1] = nextQuestion();
+        gui.prepare(questions);
+    }
+    public void newQuestion() {
+        this.questionCount--;
+        if(questionCount > 0) {
+            questions[0] = nextQuestion();
+            questions[1] = nextQuestion();
+            gui.prepare(questions);
+        } else if(roundCount > 0) {
+            this.round = new GameRounds().RandomRound();
+            newRound();
+        }
+        else {
+            gui.endOfGame();
+        }
     }
 }
