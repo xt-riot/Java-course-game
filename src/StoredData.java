@@ -17,13 +17,11 @@ public class StoredData {
      */
     public void saveData(String[] data) throws IOException {
 
-        //prwta na ele3xw ama uparxei arxeio
+        File f = new File("storedData.csv");
+        //f.createNewFile();
 
-        BufferedReader br = new BufferedReader(new FileReader("storedData.csv"));
-        if (br.readLine() == null) {
-            System.out.println("Error");
-        }else {
-            //diaforetika dhmiourgw to arxeio storedData!
+        if(f.exists() && f.isFile()){
+            //ama to arxeio uparxei
             try {
                 PrintWriter writer = new PrintWriter(new FileWriter("storedData.csv",true));
 
@@ -33,10 +31,12 @@ public class StoredData {
                     i++;
                 }
                 writer.close();
+
             } catch (FileNotFoundException e) {
                 System.out.println("Error: " + e.getMessage());
             }
-        }
+        }else
+            continue;// ti continue re mpaglama den eisai sthn python :)
 
     }
 }
