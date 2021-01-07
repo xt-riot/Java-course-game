@@ -11,7 +11,7 @@ public class StoredData {
     }
 
     /**
-     * Μέθοδος για να αποθηκεύει δεδομένα του παιχνιδιού.
+     * Μέθοδος για να αποθηκεύει δεδομένα του παιχνιδιού.Με Delimiter το ","
      * @param data πίνακας απο String.
      * @throws IOException
      */
@@ -20,23 +20,19 @@ public class StoredData {
         File f = new File("storedData.csv");
         //f.createNewFile();
 
-        if(f.exists() && f.isFile()){
-            //ama to arxeio uparxei
-            try {
-                PrintWriter writer = new PrintWriter(new FileWriter("storedData.csv",true));
+        try {
+            PrintWriter writer = new PrintWriter(new FileWriter("storedData.csv",true));
 
-                int i = 0;
-                while (i < data.length) {
-                    writer.println(data[i]);
-                    i++;
-                }
-                writer.close();
-
-            } catch (FileNotFoundException e) {
-                System.out.println("Error: " + e.getMessage());
+            int i = 0;
+            while (i < data.length) {
+                writer.print(data[i] + ",");  //ta grafei me delimeter (,)
+                i++;
             }
-        }else
-            continue;// ti continue re mpaglama den eisai sthn python :)
+            writer.close();
 
+        }catch(FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
+
 }
