@@ -19,7 +19,7 @@ public class AllQuestions {
      * με την fileReader διαβάζουμε τους χαρακτήρες και με την BufferReader διαβάζουμε το κείμενο που περιέχει αυτούς τους χαρακτήρες.
      */
     public void fillQuestions() {
-        String line = "";
+        String line;
         String fileDir = System.getProperty("user.dir") + "/QuizQuestions.csv";
         if( !(new File(fileDir).exists()) ) {
             fileDir = System.getProperty("user.dir") + "/src/QuizQuestions.csv";
@@ -38,7 +38,7 @@ public class AllQuestions {
 
     /**
      * Στην μέθοδο newEntry η οποία δεν επιστρέφει κάποια τιμή (void),
-     * @param entry
+     * @param entry Η ερώτηση που είναι προς εισαγωγή στην database
      */
     private void newEntry(SingleQuestion entry) {
 
@@ -53,14 +53,15 @@ public class AllQuestions {
 
     /**
      *Μέθοδος που επιλέγει τυχαία τις ερωτήσεις.
-     * @param category Δέχεται την κατηφορία της ερώτησης (String).
      * @return Επιστρέφει την τυχαία ερώτηση.
      */
-    public SingleQuestion getRandomQuestion(String category) {
-        ArrayList<SingleQuestion> randomQuestionCategory = this.questions.get(category);
-        Collections.shuffle(randomQuestionCategory);
-        SingleQuestion randomQuestion = randomQuestionCategory.get(0);
-        questions.get(category).remove(randomQuestion);
+    public SingleQuestion getRandomQuestion(ArrayList<SingleQuestion> questionsOfACategory) {
+        //ArrayList<SingleQuestion> randomQuestionCategory = this.questions.get(category);
+        Collections.shuffle(questionsOfACategory);
+        SingleQuestion randomQuestion = questionsOfACategory.get(0);
+        String category = randomQuestion.getCategory();
+        this.questions.get(category).remove(randomQuestion);
+        //questions.get(category).remove(randomQuestion);
         return randomQuestion;
     }
 

@@ -1,18 +1,12 @@
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.logging.*;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class GUI {
     private static Logger dbg = Logger.getLogger(GUI.class.getName());
-    private GameEnvironment game;
+    private Game game;
     private JFrame frame;
     private JPanel topPanel;
     private JPanel midPanel;
@@ -21,6 +15,8 @@ public class GUI {
     private JPanel[][] panels;
     private JLabel[][] labels;
     private JButton[][] answerButtons;
+
+    //private WelcomeScreen welcomeScreen;
 
     private JLabel label;
     private JLabel label1;
@@ -40,6 +36,8 @@ public class GUI {
         frame.setBackground(Color.RED);
         frame.setSize(800, 400);
 
+        //welcomeScreen = new WelcomeScreen(this.frame);
+        //welcomeScreen.setText("");
         label = new JLabel("asd");
 
         topPanel = new JPanel();
@@ -128,8 +126,7 @@ public class GUI {
         frame.repaint();
     }
 
-    public void choosePlayers(GameEnvironment id) {
-        this.game = id;
+    public void choosePlayers() {
         label.setText("Welcome to Buizz! Quiz World rip-off.\nPlease choose the number of players:");
         topPanel.add(label, BorderLayout.CENTER);
 
@@ -205,7 +202,9 @@ public class GUI {
         }
         test();
         setFrameVisible(true);
-        startG();
+        this.game = new Game(this, this.allPlayers);
+        //this.game.ReadyForNextStep();
+        //startG();
     }
 
     public void wipeAll() {
@@ -239,19 +238,19 @@ public class GUI {
             send = answers[i] != -1;
         }
         if(send) {
-            game.ready(answers);
+            //game.ReadyForNextStep(answers);
             for(int i = 0; i<allPlayers.size(); i++)
                 answers[i] = -1;
         }
     }
-    public void next() {
-        game.newQuestion();
-    }
+    /*public void next() {
+    //    game.newQuestion();
+    //}
 
     private void startG() {
         this.game.setPlayers(allPlayers);
         this.game.startGame();
-    }
+    }//*/
 
     public void endOfGame() {
         labels[0][0].setText("End of game");

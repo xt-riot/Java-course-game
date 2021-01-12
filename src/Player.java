@@ -89,48 +89,31 @@ public class Player {
     /**
      * Αλλαγή των πόντων του παίχτη
      *
-     * @param question SingleQuestion object - η ερώτηση που δόθηκε στον παίχτη
      * @param newScore Integer - Οι πόντοι που θα προστεθούν στους συνολικούς πόντους του παίχτη
      */
-    public void setNewScore(SingleQuestion question, int newScore, int answer) {
-        //int lastAnswer = this.getAnswer();
-        String tempString = "You are incorrect. The correct answer is: " + question.correctAnswer() + "\n\n";
-        if (question.correctAnswer().equals(question.getAnswers().get(answer))) {
-            this.score += newScore;
-            tempString = "You are correct!\n\n";
-        }
-        System.out.println(tempString);
-        questionsAndResult.addNewAnsweredQuestion(question, question.getAnswers().get(answer));
+
+    public void addNewScore(int newScore) {
+        this.score += newScore;
+        System.out.println("NEW SCORE: " + this.score);
     }
 
     /**
-     * <pre>Δέχεται την απάντηση του παίχτη σε κάποια ερώτηση.
+     * <pre> Προσθέτει την απάντηση που έδωσε κάθε παίχτης
      *
-     * TODO Μη αποδοχή λάθος επιλογής(σε περίπτωση που ο χρήστης επιστρέψει μη-έγκυρη επιλογή)
      * </pre>
      */
-    protected int getAnswer() {
-        Scanner userInput = new Scanner(System.in);
-        System.out.println("What is your answer? ");
+    protected void addAnsweredQuestion(SingleQuestion question, String answer) {
+        /*int lastAnswer = -1;
 
-        String answer = userInput.nextLine();
-        answer = answer.toUpperCase();
-        int lastAnswer = -1;
-        switch (answer) {
-            case ("A"):
-                lastAnswer = 0;
-                break;
-            case ("B"):
-                lastAnswer = 1;
-                break;
-            case ("C"):
-                lastAnswer = 2;
-                break;
-            case ("D"):
-                lastAnswer = 3;
-                break;
-        }
-        return lastAnswer;
+
+            switch (answer) {
+                case ("A") -> lastAnswer = 0;
+                case ("B") -> lastAnswer = 1;
+                case ("C") -> lastAnswer = 2;
+                case ("D") -> lastAnswer = 3;
+                //default -> System.out.println("Λάθος επιλογή. Παρακαλώ διαλέξτε μία από τις 4 επιλογές.");
+        }//*/
+        this.questionsAndResult.addNewAnsweredQuestion(question, answer);
     }
 
     public void getQuestionsAndResults() {
