@@ -36,22 +36,23 @@ class Label extends Panel {
 
 
     public void startRendering() {
-        //super.fadeIn(90);
+        //super.fadeIn(this);
         this.rendering = true;
         this.timer.removeActionListener(this.timer.getActionListeners()[0]);
         this.timer.addActionListener(x -> {
-            if(this.label.isShown() && this.label.isCounted()) {
+            if(this.frame.isVisible() && this.label.isShown() && this.label.isCounted()) {
                 this.panelComponents++;
                 this.label.setCounted(true);
             }
-            else if(this.label.isShown() && this.label.isRendering()) {
+            else if(this.frame.isVisible() && this.label.isShown() && this.getComponentCount() == this.panelComponents) {
                 this.panelComponents = 0;
                 this.isShown = true;
                 this.rendering = false;
                 System.out.println(this.getClass().getName() + " has completed fading in.");
                 this.timer.stop();
             }
-            else if (this.label.isRendering()) {
+            else if (this.frame.isVisible() &&  this.label.isRendering()) {
+                System.out.println(this.getRootPane());
                 System.out.println(this.getClass().getName() + " has requested " + this.label.getClass().getName() + " to fade in.");
                 this.label.fadeIn(90);
             }

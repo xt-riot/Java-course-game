@@ -47,43 +47,10 @@ public class PlayerChoice extends Panel {
 
     @Override
     public void startRendering() {
+        this.label.setName("PlayerChoiceLabel");
         super.startRenderingImage(150, true);
         this.rendering = true;
-        this.timer.removeActionListener(this.timer.getActionListeners()[0]);
-        this.timer.addActionListener(e -> {
-            if (this.panels == this.getComponentCount() && !this.rendering) {
-                this.isShown = true;
-                this.panels = 0;
-                System.out.println(this.getClass().getName() + " has completed fading in with all its components.");
-                this.timer.stop();
-            }
-            else if(this.panels < this.getComponentCount() && !this.rendering) {
-                Component x = this.getComponent(this.panels);
-                if (x instanceof Label) {
-                    if (!((Label) x).isShown() && ((Label) x).isRendering()) {
-                        System.out.println(x.getClass().getName() + " has been ordered to render.");
-                        ((Label) x).startRendering();
-                    } else if (((Label) x).isShown() && ((Label) x).isCounted()) {
-                        System.out.println(((Label) x).getClass().getName() + " has completed rendering.");
-                        ((Label) x).setCounted(true);
-                        this.panels++;
-                    }
-                } else if (x instanceof Buttons) {
-                    if (!((Buttons) x).isShown() && ((Buttons) x).isRendering()) {
-                        ((Buttons) x).setCoordinates(x.getX(), x.getY(), Main.HEIGHT);
-                        ((Buttons) x).startRendering();
-                    } else if (((Buttons) x).isShown() && ((Buttons) x).isCounted()) {
-                        System.out.println(((Buttons) x).getClass().getName() + " has completed rendering.");
-                        ((Buttons) x).setCounted(true);
-                        this.panels++;
-                    }
-                } else {
-                    System.out.println(this.getClass().getName() + " is neither a label or a button.");
-                }
 
-            }
-        });
-        this.timer.start();
     }
 
     @Override

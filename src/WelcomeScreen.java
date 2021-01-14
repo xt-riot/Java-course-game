@@ -34,24 +34,9 @@ public class WelcomeScreen extends Panel {
     }
 
     public void startRendering() {
-        super.startRenderingImage(150);
+        super.startRenderingImage(150, true);
         this.rendering = true;
-        this.timer.removeActionListener(this.timer.getActionListeners()[0]);
-        this.timer.addActionListener(x -> {
-            if(!this.rendering) {
-                if (this.panelLabel.isShown()) {
-                    this.panels = 0;
-                    this.isShown = true;
-                    this.rendering = false;
-                    System.out.println(this.getClass().getName() + " has completed fading in.");
-                    this.timer.stop();
-                }
-                else if (this.panelLabel.isRendering()) {
-                    this.panelLabel.startRendering();
-                }
-            }
-        });
-        this.timer.start();
+        //super.fadeIn();
 
         //super.fadeIn(90);
         //super.startRenderingImage(150);

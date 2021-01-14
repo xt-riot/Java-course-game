@@ -30,7 +30,7 @@ public class GUILogic {
         this.nextPanel = 0;
         this.currentPanelHasComponents = 0;
         this.isPanelShown = false;
-        this.timer = new Timer(50, e->{});
+        this.timer = new Timer(150, e->{});
         this.howManyPlayersAnswered = 0;
         this.allPlayers = new ArrayList<>();
 
@@ -82,7 +82,7 @@ public class GUILogic {
             }
         });
 
-        this.addPrimaryPanel(welcomeScreen);
+        //this.addPrimaryPanel(welcomeScreen);
         this.addPrimaryPanel(playerChoice);
         this.addPrimaryPanel(basicGame);
 
@@ -161,7 +161,7 @@ public class GUILogic {
 
 
     public void choosePlayerName() {
-        this.setFrameVisible(false);
+        //this.setFrameVisible(false);
         for(int i = 1; i<=this.numberOfPlayers; i++) {
             String name = JOptionPane.showInputDialog(frame, "Choose the name of player"+i, "Player"+i+" name", JOptionPane.QUESTION_MESSAGE);
             if (name.length() > 0)
@@ -169,10 +169,10 @@ public class GUILogic {
             else
                 allPlayers.add(new Player("Player"+i));
         }
-        setFrameVisible(true);
         this.nextPanel++;
         animateIn();
-        //System.out.println(allPlayers);
+        //setFrameVisible(true);
+        System.out.println(allPlayers);
         this.answers = new String[this.numberOfPlayers];
         this.game = new Game(this, this.allPlayers);
         this.game.startGame();
@@ -210,7 +210,8 @@ public class GUILogic {
         this.frame.invalidate();
         this.frame.validate();
         this.frame.repaint();
-        System.out.println(temporaryVarForPanel);
+        //System.out.println(temporaryVarForPanel);
+        System.out.println(this.frame.getContentPane());
         this.currentPanelHasComponents = 0;
         temporaryVarForPanel.startRendering();
         ActionListener action = e -> {
@@ -223,7 +224,7 @@ public class GUILogic {
                 this.timer.stop();
                 if (!temporaryVarForPanel.hasButtons()) {
                     System.out.println(this.getClass().getName() + " has requested " + temporaryVarForPanel.getClass().getName() + " to fade out because it has no buttons");
-                    this.animateOut(1500);
+                    this.animateOut(0);
                 }
             }
         };
@@ -268,7 +269,7 @@ public class GUILogic {
         temporaryVarForPanel.unRender(delay);
 
         ActionListener action = e -> {
-            if (!temporaryVarForPanel.isShown() && temporaryVarForPanel.isRendering() && this.panelsToShow.size() != (this.nextPanel + 1)) {
+            if (!temporaryVarForPanel.isShown() && temporaryVarForPanel.isRendering() && this.panelsToShow.size() != (this.nextPanel + 1) && !temporaryVarForPanel.hasButtons()) {
                 System.out.println(this.getClass().getName() + " will show the next panel as soon as this unrenders.");
                 this.nextPanel++;
                 animateIn();

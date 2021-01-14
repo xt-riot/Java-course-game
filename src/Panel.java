@@ -139,9 +139,10 @@ abstract class Panel extends JPanel {
                 imgCurrentPosition = imageFinalPosition;
                 isShown = true;
                 rendering = false;
-                //System.out.println(this.getClass().getName() + " says hi.");
-                if(this.renderAll) this.fadeIn();
+                //
+                //System.out.println(this.getClass().getName() + " says hi." + this.renderAll);
                 this.timerForAnimations.stop();
+                if(this.renderAll) this.fadeIn();
             }
             else if (imgCurrentPosition > imageFinalPosition && imageFinalPosition == Main.WIDTH) {
                 isShown = false;
@@ -153,13 +154,13 @@ abstract class Panel extends JPanel {
             else {
                 rendering = true;
                 //System.out.println(this.getClass().getName() + " changing current position.");
-                imgCurrentPosition += Main.WIDTH/80;
+                imgCurrentPosition += Main.WIDTH/(1000/Main.speed);
             }
             //System.out.println(this.getClass().getName() + " requested to bring background image to position: " + imageFinalPosition + ". Image shown (" + isShown + ") Image rendering (" + rendering + ") Image current position: " + imgCurrentPosition);
         };
         this.timerForAnimations.removeActionListener(this.timerForAnimations.getActionListeners()[0]);
         this.timerForAnimations.addActionListener(action);
-        this.timerForAnimations.setDelay(1);
+        this.timerForAnimations.setDelay(10);
         this.timerForAnimations.start();
         //System.out.println(this.timerForAnimations.getClass().getName() + " timerForAnimations is " + this.timerForAnimations.isRunning() + " with " + this.timerForAnimations.getActionListeners().length + " action listeners.");
     }
