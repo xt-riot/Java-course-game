@@ -1,6 +1,5 @@
 import java.io.*;
 
-
 public class StoredData {
 
     /**
@@ -11,22 +10,20 @@ public class StoredData {
     }
 
     /**
-     * Μέθοδος για να αποθηκεύει δεδομένα του παιχνιδιού.Με Delimiter το ","
-     * @param data πίνακας απο String.
+     * Μέθοδος για να αποθηκεύει δεδομένα του παιχνιδιού
+     * @param names και scores πινακες για τα ονόματα των παικτών και σκορ τους.
      * @throws IOException
      */
-    public void saveData(String[] data) throws IOException {
+    public void saveData(String[] names,int[] scores) throws IOException {
 
-        File f = new File("storedData.csv");
-        //f.createNewFile();
+        File f = new File("storedData.txt");
 
         try {
-            PrintWriter writer = new PrintWriter(new FileWriter("storedData.csv",true));
+            PrintWriter writer = new PrintWriter(new FileWriter("storedData.txt",true));
 
-            int i = 0;
-            while (i < data.length) {
-                writer.print(data[i] + ",");  //ta grafei me delimeter (,)
-                i++;
+            for(int i = 0; (i < names.length && i<scores.length); i++){
+               // writer.println("Game" + " " + i);
+               writer.println(names[i] + "," + scores[i]);
             }
             writer.close();
 
@@ -34,5 +31,4 @@ public class StoredData {
             e.printStackTrace();
         }
     }
-
 }
