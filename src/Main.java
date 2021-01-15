@@ -16,36 +16,9 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        //String filename = "storedData.csv";
-        //new StoredData(filename);
-
-        //h dis = new h();
-
         GUILogic gui = new GUILogic();
         gui.setFrameVisible(true);
-        //gui.nextStep(0);
 
-
-        /*Scanner userInput = new Scanner(System.in);
-        String userName = "";
-        while(!userName.equals("e")) {
-            System.out.println("Time to shine ");
-            userName = userInput.nextLine();
-            if(userName.equals("y")) {
-                gui.nextStep(0);
-            }
-            else if(userName.equals("n")) {
-                gui.nextStep(1);
-            }
-            else if (userName.equals("1"))
-                gui.nextStep(2);
-            else if (userName.equals("3"))
-                gui.nextStep(3);
-        }//*/
-
-        //GUI gui = new GUI();
-        //gui.setFrameVisible(true);
-        //gui.choosePlayers();
     }
 
 }

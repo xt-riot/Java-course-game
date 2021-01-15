@@ -1,28 +1,21 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class GameGUI extends Panel {
-    private boolean hasEnded;
     private boolean bet;
     private boolean stopClock;
     private Label questionLabel;
-    private Buttons[] buttons;
-    private Label nextRoundLabel;
+    private final Buttons[] buttons;
     private int numberOfPlayers;
 
-    private Timer timer;
+    private final Timer timer;
 
-    private ArrayList<String> answers;
+    private final ArrayList<String> answers;
     private int clockTick;
-    private Timer clock;
+    private final Timer clock;
     private Label clockLabel;
 
     GameGUI(JFrame id, int numberOfPlayers) {
@@ -36,7 +29,6 @@ public class GameGUI extends Panel {
         this.hasbuttons = true;
         this.hasAnswers = false;
         this.answers = new ArrayList<>();
-        nextRoundLabel = new Label(this.frame, "New question in 3");
         this.clockTick = 5000;
         this.clock = new Timer(1, e -> {
             clockTick--;
@@ -59,14 +51,16 @@ public class GameGUI extends Panel {
         this.buttons[1].setSize(150, 200);
         this.buttons[1].setLocation(200, 130);
 
+        this.keyListeners();
+    }
 
+
+    private void keyListeners() {
         this.buttons[0].addPropertyChangeListener("playerHasAnswered", e-> {
-            System.out.println("player1 has chosen " + e.getNewValue());
             if(this.stopClock) System.out.println("clicked at " + clockTick);
             this.firePropertyChange("answer", 4, e.getNewValue());
         });
         this.buttons[1].addPropertyChangeListener("playerHasAnswered", x -> {
-            System.out.println("player2 has chosen " + x.getNewValue());
             if(this.stopClock) System.out.println("clicked at " + clockTick);
             this.firePropertyChange("answer", 5, x.getNewValue());
         });
@@ -81,7 +75,7 @@ public class GameGUI extends Panel {
             public void keyPressed(KeyEvent e) {
                 for ( int i = 0; i<Main.asd.length; i ++)
                     if(e.getKeyCode() == Main.asd[i]) {
-                        System.out.println("!!!!! PRESSED: " + KeyEvent.getKeyText(Main.asd[i]) + " BY PLAYER " + (i / 4));
+                        firePropertyChange("answer", ((i/4) + 4), buttons[i/4].getAnswer(i%4) );
                         break;
                     }
             }
@@ -92,7 +86,6 @@ public class GameGUI extends Panel {
             }
         });
     }
-
 
     /**
      * Sets each button with the given answer.
@@ -116,26 +109,20 @@ public class GameGUI extends Panel {
                 this.timer.setDelay(1);
                 this.timer.stop();
                 this.questionLabel.startRendering();
-                System.out.println("New question shown with delay: " + this.timer.getInitialDelay() + this.timer.isRunning());
                 this.questionLabel.setText("Get ready! Next question...");
                 this.timer.removeActionListener(this.timer.getActionListeners()[0]);
-                System.out.println(this.timer.isRunning());
                 this.timer.addActionListener(x -> {
                     if(this.questionLabel.isRendering() && this.questionLabel.isShown()) {
                         this.timer.setInitialDelay(0);
                         this.timer.setDelay(1);
                         this.timer.stop();
-                        //this.questionLabel.startRendering();//this.questionLabel.setSize(new Dimension(Main.HEIGHT - 100, 90));
-                        System.out.println(this.questionLabel.isRendering());
                         if(this.stopClock) {
                             this.add(this.clockLabel);
                             this.clock.start();
                         }
                         this.setAnswers(question.getAnswers());
-                        System.out.println(question.getAnswers());
                         renderAll();
                         this.questionLabel.setText(question.getQuestion());
-                        System.out.println(this.timer.getInitialDelay());
                     }
                 });
                 this.timer.start();
@@ -147,7 +134,6 @@ public class GameGUI extends Panel {
 
     public void prepareForNextRound(int round, String roundName, String roundInfo, int questions) {
         this.timer.stop();
-        System.out.println("New round with " + questions + " questions " + this.timer.isRunning());
         super.fadeIn(this.questionLabel);
         if(roundName.contains("Stop the clock")) { this.stopClock = true; this.bet = false; }
         else if(roundName.contains("Bet")) { this.bet = true; this.stopClock = false; }
@@ -156,13 +142,10 @@ public class GameGUI extends Panel {
         this.questionLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 2));
         this.timer.removeActionListener(this.timer.getActionListeners()[0]);
         this.timer.addActionListener(e -> {
-            //System.out.println(temp + " // " + this.questionLabel.getLocation() + " // " + (this.questionLabel.getLocation() == temp));
             this.timer.stop();
-            //super.fadeOut(this.questionLabel);
             this.firePropertyChange("RoundScreenComplete", 0, 1);
             this.questionLabel.setSize(new Dimension(Main.WIDTH - 100, 90));
             this.questionLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
-            //this.timer.setInitialDelay(2000);
         });
         this.timer.setInitialDelay(6000);
         this.timer.start();
@@ -187,7 +170,6 @@ public class GameGUI extends Panel {
             if (this.panels == this.getComponentCount() - 1 && !this.rendering) {
                 this.isShown = true;
                 this.panels = 0;
-                System.out.println(this.getClass().getName() + " has completed fading in with all its components.");
                 this.timer.stop();
             } else if (this.panels < this.getComponentCount() && !this.rendering) {
                 super.fadeIn();

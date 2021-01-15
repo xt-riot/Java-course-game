@@ -2,13 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.util.logging.Logger;
-
-
 
 
 abstract class Panel extends JPanel {
-    protected static final Logger dbg = Logger.getLogger(Panel.class.getName());
     protected JFrame frame;
 
     protected boolean isPrimary;
@@ -19,8 +15,7 @@ abstract class Panel extends JPanel {
     protected int imgCurrentPosition;
 
     private BufferedImage img;
-    private Timer timerForAnimations;
-    private int componentsReady;
+    private final Timer timerForAnimations;
     protected int panels;
     protected boolean hasAnswers;
     protected boolean renderAll;
@@ -31,7 +26,6 @@ abstract class Panel extends JPanel {
     Panel(JFrame id, boolean isPrim) {
         this.frame = id;
         this.isPrimary = isPrim;
-        this.componentsReady = 0;
         this.setLayout(new GridBagLayout());
         this.imgCurrentPosition = -(Main.WIDTH);
         this.renderAll = false;
@@ -49,22 +43,17 @@ abstract class Panel extends JPanel {
     protected void fadeIn(Component x) {
         if (x instanceof Label) {
             if (!((Label) x).isShown() && ((Label) x).isRendering()) {
-                //this.firePropertyChange("start", 0, 1);
-                System.out.println(x.getClass().getName() + " has been ordered to render.");
                 ((Label) x).startRendering();
             } else if (((Label) x).isShown() && ((Label) x).isCounted()) {
-                System.out.println(((Label) x).getClass().getName() + " has completed rendering.");
                 ((Label) x).setCounted(true);
                 this.panels++;
             }
         } else if (x instanceof Buttons) {
             if (!((Buttons) x).isShown() && ((Buttons) x).isRendering()) {
-                System.out.println(this.getClass().getName() + " has requested " + x.getClass().getName() + " to start rendering.");
                 ((Buttons) x).setCoordinates(x.getX(), x.getY(), Main.HEIGHT);
                 ((Buttons) x).render();
                 ((Buttons) x).startRendering();
             } else if (((Buttons) x).isShown() && ((Buttons) x).isCounted()) {
-                System.out.println(((Buttons) x).getClass().getName() + " has completed rendering.");
                 ((Buttons) x).setCounted(true);
                 this.panels++;
             }
@@ -75,13 +64,11 @@ abstract class Panel extends JPanel {
     }
     
     protected void fadeIn() {
-        //System.out.println(this.timerForAnimations.isRunning());
         this.timerForAnimations.removeActionListener(this.timerForAnimations.getActionListeners()[0]);
         this.timerForAnimations.addActionListener(e -> {
             if (this.panels == this.getComponentCount() && !this.rendering) {
                 this.isShown = true;
                 this.panels = 0;
-                System.out.println(this.getClass().getName() + " has completed fading in with all its components.");
                 this.timerForAnimations.stop();
             } else if (this.panels < this.getComponentCount() && !this.rendering) {
                 Component x = this.getComponent(this.panels);
@@ -96,7 +83,6 @@ abstract class Panel extends JPanel {
         this.timerForAnimations.addActionListener(e -> {
             for(Component panels : this.getComponents()) {
                 if(panelToFadeOut == this.getComponent(panelToFadeOut.getPanelID())) {
-                    System.out.println(panelToFadeOut.getClass().getName() + " id: " + panelToFadeOut.getPanelID() + "(Panel.fadeOut)");
                     panelToFadeOut.unRender(0);
 
                     this.timerForAnimations.stop();
@@ -110,37 +96,28 @@ abstract class Panel extends JPanel {
     protected void startRenderingImage(int imageFinalPosition) {
         this.rendering = true;
         ActionListener action = e -> {
-            //this.invalidate();
-            //this.validate();
             repaint();
             if(imgCurrentPosition >= imageFinalPosition && imageFinalPosition < Main.WIDTH) {
                 imgCurrentPosition = imageFinalPosition;
                 isShown = true;
                 rendering = false;
-                //
-                //System.out.println(this.getClass().getName() + " says hi." + this.renderAll);
                 this.timerForAnimations.stop();
                 if(this.renderAll) this.fadeIn();
             }
             else if (imgCurrentPosition > imageFinalPosition && imageFinalPosition == Main.WIDTH) {
                 isShown = false;
                 rendering = false;
-                System.out.println(this.getClass().getName() + " has completed fading out.(Panel)");
-
                 this.timerForAnimations.stop();
             }
             else {
                 rendering = true;
-                //System.out.println(this.getClass().getName() + " changing current position.");
                 imgCurrentPosition += Main.WIDTH/(1000/Main.speed);
             }
-            //System.out.println(this.getClass().getName() + " requested to bring background image to position: " + imageFinalPosition + ". Image shown (" + isShown + ") Image rendering (" + rendering + ") Image current position: " + imgCurrentPosition);
         };
         this.timerForAnimations.removeActionListener(this.timerForAnimations.getActionListeners()[0]);
         this.timerForAnimations.addActionListener(action);
         this.timerForAnimations.setDelay(10);
         this.timerForAnimations.start();
-        //System.out.println(this.timerForAnimations.getClass().getName() + " timerForAnimations is " + this.timerForAnimations.isRunning() + " with " + this.timerForAnimations.getActionListeners().length + " action listeners.");
     }
 
     protected void startRenderingImage(int imageFinalPosition, boolean bool) {
@@ -158,9 +135,6 @@ abstract class Panel extends JPanel {
 
     public boolean hasButtons() {
         return !this.hasbuttons;
-    }
-    public int getImagePosition() {
-        return this.imgCurrentPosition;
     }
 
     protected void setPanelID(int id) {

@@ -6,11 +6,11 @@ import java.beans.PropertyChangeListener;
 public class PlayerChoice extends Panel {
 
     private final GUILogic parent;
-    private Buttons buttons;
-    private Label label;
+    private final Buttons buttons;
+    private final Label label;
 
     private int numberOfPlayers;
-    private Timer timer;
+    private final Timer timer;
     private int panels;
 
     public PlayerChoice(JFrame id, GUILogic testid) {
@@ -35,14 +35,7 @@ public class PlayerChoice extends Panel {
 
         this.add(buttons, gbc);
 
-        this.buttons.addPropertyChangeListener("numberOfPlayers", new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                Object source = evt.getSource();
-                System.out.println(this.getClass().getName() + " //" + source.toString() + " asdasdadsad " + evt.getNewValue());
-                setNumberOfPlayers((int)evt.getNewValue());
-            }
-        });
+        this.buttons.addPropertyChangeListener("numberOfPlayers", evt -> setNumberOfPlayers((int)evt.getNewValue()));
     }
 
     @Override
@@ -59,30 +52,24 @@ public class PlayerChoice extends Panel {
             if (this.panels == this.getComponentCount() && this.isShown) {
                 super.startRenderingImage(Main.WIDTH);
                 this.parent.choosePlayerName();
-                System.out.println(this.getClass().getName() + " has completed fading out all its components. Starting fading out the background image.");
                 this.timer.stop();
             }
             else if(this.panels < this.getComponentCount() && this.isShown) {
                 Component x = this.getComponent(this.getComponentCount() - 1 - this.panels);
                 if( x instanceof Label ) {
                     if( ((Label) x).isShown() && ((Label) x).isRendering()) {
-                        System.out.println(x.getClass().getName() + " has been ordered to unrender.");
                         ((Label) x).unRender(0);
                     }
                     else if ( !((Label) x).isShown() && ((Label) x).isCounted()) {
-                        System.out.println(((Label) x).getClass().getName() + " has completed unrendering.");
                         ((Label) x).setCounted(true);
                         this.panels++;
                     }
                 }
                 else if ( x instanceof Buttons ) {
                     if ( ((Buttons) x).isShown() && ((Buttons) x).isRendering()) {
-                        System.out.println(x.getClass().getName() + " has been ordered to unrender.");
-                        //((Buttons) x).setCoordinates(x.getX(), Main.HEIGHT, x.getY());
                         ((Buttons) x).unRender(0);
                     }
                     else if ( !((Buttons) x).isShown() && ((Buttons) x).isCounted()) {
-                        System.out.println(((Buttons) x).getClass().getName() + " has completed unrendering.");
                         ((Buttons) x).setCounted(true);
                         this.panels++;
                     }
@@ -94,68 +81,6 @@ public class PlayerChoice extends Panel {
         });
         this.timer.start();
     }
-
-
-
-    /*
-
-    for( Component x : this.getComponents()) {
-                    if( x instanceof Label ) {
-                        if( ((Label) x).isShown() && !((Label) x).isRendering() ) {
-                            System.out.println(x.getClass().getName() + " has been ordered to unrender.");
-                            ((Label) x).unRender();
-                        }
-                        else if ( !((Label) x).isShown() && !((Label) x).isCounted()) {
-                            System.out.println(((Label) x).getClass().getName() + " has completed unrendering.");
-                            ((Label) x).setCounted(true);
-                            this.panels++;
-                        }
-                    }
-                    else if ( x instanceof Buttons ) {
-                        if ( ((Buttons) x).isShown() && !((Buttons) x).isRendering() ) {
-                            System.out.println(x.getClass().getName() + " has been ordered to unrender.");
-                            ((Buttons) x).unRender();
-                        }
-                        else if ( !((Buttons) x).isShown() && !((Buttons) x).isCounted() ) {
-                            System.out.println(((Buttons) x).getClass().getName() + " has completed unrendering.");
-                            ((Buttons) x).setCounted(true);
-                            this.panels++;
-                        }
-                    }
-                    else {
-                        System.out.println(this.getClass().getName() + " is neither a label or a button.");
-                    }
-                }
-     if (this.panelLabel.isShown()) {
-                    this.panels = 0;
-                    this.isShown = true;
-                    this.rendering = false;
-                    System.out.println(this.getClass().getName() + " has completed fading in.");
-                    this.timer.stop();
-                }
-                else if (!this.panelLabel.isRendering()) {
-                    this.panelLabel.startRendering();
-                }
-
-
-    @Override
-
-    protected void nextRender() {
-            for(Component e : (this.getComponents())) {
-                if(e instanceof Panel ) {
-                    if(!this.readyToLeave) ((Panel)e).startRendering();
-                    else if(e instanceof TopLabel ) ((Panel)e).unRender();
-                }
-            }
-
-    }
-
-    @Override
-    protected void goNext() {
-        //parent.nextStep(3);
-        //this.unRender();
-        this.parent.playersChosen(this.numberOfPlayers);
-    }//*/
 
     public void setNumberOfPlayers(int players) {
         this.numberOfPlayers = players;

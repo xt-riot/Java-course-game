@@ -8,8 +8,6 @@ public class CustomLabel extends JLabel {
     protected JPanel panel;
     private int currentAlpha;
     private final Timer asd;
-    private int fade;
-
     private boolean counted;
 
     public CustomLabel(JPanel panelID, String text) {
@@ -19,13 +17,11 @@ public class CustomLabel extends JLabel {
         this.asd = new Timer(1, e -> {});
         this.rendered = false;
         this.rendering = false;
-        //this.setBorder(BorderFactory.createLineBorder(Color.red));
 
     }
     public void fadeIn(int f) {
         this.currentAlpha = 0;
         this.setVisible(true);
-        this.fade = f;
         ActionListener action = e -> {
             currentAlpha += 255 / 90;
             fadeLabel();
@@ -35,8 +31,6 @@ public class CustomLabel extends JLabel {
         this.asd.start();
         this.rendering = true;
         this.counted = false;
-        //System.out.println(this.getText());
-        //this.setForeground(Color.white);
     }
 
     public void fadeOut() {
