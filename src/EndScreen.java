@@ -1,9 +1,16 @@
 import javax.swing.*;
 
+/**
+ * Κλάση EndScreen που επεκτείνει την κλάση Panel.
+ */
 public class EndScreen extends Panel {
     private final Label topScreen;
     private Label[] players;
 
+    /**
+     * Κατασκευαστής της κλάσης EndScreen.
+     * @param id
+     */
     EndScreen(JFrame id) {
         super(id, true);
         topScreen = new Label(id, "The game has ended. Let's see how you scored...");

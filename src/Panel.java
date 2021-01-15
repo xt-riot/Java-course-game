@@ -3,7 +3,10 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
-
+/**
+ *Κλάση abstract Panel που κληρονομεί απο την JPanel
+ * και λειτουργεί ως πάνελ για την εφαρμογή.
+ */
 abstract class Panel extends JPanel {
     protected JFrame frame;
 
@@ -23,6 +26,11 @@ abstract class Panel extends JPanel {
     protected int panelID;
 
 
+    /**
+     * Κατασκευαστής της κλάσης abstract Panel.
+     * @param id
+     * @param isPrim
+     */
     Panel(JFrame id, boolean isPrim) {
         this.frame = id;
         this.isPrimary = isPrim;
@@ -93,6 +101,10 @@ abstract class Panel extends JPanel {
     }
 
 
+    /**
+     * Μέθοδος για την κίνηση της εικόνας.
+     * @param imageFinalPosition τελική εικόνα εφαρμογής.
+     */
     protected void startRenderingImage(int imageFinalPosition) {
         this.rendering = true;
         ActionListener action = e -> {
@@ -120,6 +132,11 @@ abstract class Panel extends JPanel {
         this.timerForAnimations.start();
     }
 
+    /**
+     * Μέθοδος για την κίνηση της εικόνας.
+     * @param imageFinalPosition τελική εικόνα εφαρμογής.
+     * @param bool
+     */
     protected void startRenderingImage(int imageFinalPosition, boolean bool) {
         this.renderAll = bool;
         this.startRenderingImage(imageFinalPosition);

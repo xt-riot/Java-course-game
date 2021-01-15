@@ -1,11 +1,17 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Κλάση GameRounds που δημιουργεί την επιλογή στοιχήματος για τους γύρους.
+ */
 class GameRounds {
     private final ArrayList<String> gameRounds;
     private int score;
     private int roundIndex;
 
+    /**
+     * Κατασκευαστής της κλάσης GameRounds.
+     */
     public GameRounds() {
         gameRounds = new ArrayList<>();
         gameRounds.add("Correct Answer");
@@ -17,10 +23,18 @@ class GameRounds {
         roundIndex = -1;
     }
 
+    /**
+     * Μέθοδος για το όνομα κάθε γύρου.
+     * @return όνομα γύρου
+     */
     public String getRoundName() {
         return this.gameRounds.get(roundIndex);
     }
 
+    /**
+     * Μέθοδος για τις πληροφορίες κάθε γύρου.
+     * @return πληροφορίες γύρου
+     */
     public String getRoundInfo() {
         String asd = "";
         switch (this.roundIndex) {
@@ -46,6 +60,10 @@ class GameRounds {
         return asd;
     }
 
+    /**
+     * Μέθοδος που δείχνει τις επιλογες στοιχήματος.
+     * @return την τιμή που στοιχηματίστικε.
+     */
     private int BettingRound() {
         String line = "a";
         line = line.toUpperCase();
@@ -74,12 +92,18 @@ class GameRounds {
         return score;
     }
 
-
+    /**
+     * Μέθοδος για τυχαίο γύρο παιχνιδιού.
+     */
     public void RandomRound() {
         Random temp = new Random();
         this.roundIndex = temp.nextInt(gameRounds.size());
     }
 
+    /**
+     * Μέθοδος που παίρνει τον σκορ.
+     * @return τιμή του σκορ
+     */
     public int getScore() {
         return switch (this.roundIndex) {
             case (0) -> 1000;
@@ -90,6 +114,11 @@ class GameRounds {
             default -> 0;
         };
     }
+
+    /**
+     * Μέθοδος για τους γύρους στοιχηματος.
+     * @return την τιμή που στοιχηματίστικε.
+     */
     public boolean isBettingRound() {
         return this.roundIndex == 2;
     }

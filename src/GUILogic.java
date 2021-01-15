@@ -1,7 +1,11 @@
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Κλάση GUILogic η οποία δημιουργεί όλο το animation της εφαρμογής.
+ */
 public class GUILogic {
     private final ArrayList<Panel> panelsToShow;
     private final JFrame frame;
@@ -18,6 +22,9 @@ public class GUILogic {
     private Game game;
     private String[] answers;
 
+    /**
+     * Κατασκευαστής της κλάσης GUILogic.
+     */
     GUILogic() {
         this.panelsToShow = new ArrayList<>();
         this.nextPanel = 0;
@@ -39,7 +46,11 @@ public class GUILogic {
             this.answers[((int)e.getOldValue() - 4)] = (String) e.getNewValue();
             this.howManyPlayersAnswered++;
             if(this.howManyPlayersAnswered == (this.numberOfPlayers)) {
-                this.playerHasAnswered();
+                try {
+                    this.playerHasAnswered();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
                 this.howManyPlayersAnswered = 0;
                 this.answers = new String[this.numberOfPlayers];
             }
@@ -57,16 +68,16 @@ public class GUILogic {
 
     }
     /**
-     * Adds a primary panel to the queue.
-     * @param panelToAdd the Panel to add.
+     * Μέθοδος που προσθέτει ένα αρχικό πάνελ.
+     * @param panelToAdd το πάνελ που προστίθεται.
      */
     public void addPrimaryPanel(Panel panelToAdd) {
         this.panelsToShow.add(panelToAdd);
     }
 
     /**
-     * Next primary panel to be shown.
-     * @return The next primary panel.
+     * Μέθοδος επόμενου αρχικού πάνελ που θα εμφανιστεί.
+     * @return επόμενο αρχικό πάνελ.
      */
     private Panel showNextPanel() {
         return this.panelsToShow.get(this.nextPanel);
@@ -74,12 +85,17 @@ public class GUILogic {
 
 
     /**
-     * Send the answer to the GameEngine to notify that a player has answered
+     * Μέθοδος που στέλνει την απάντηση στο GameEngine
+     * και ενημερώνει τον παίκτη οτι έχει απαντήσει.
      */
-    private void playerHasAnswered() {
+    private void playerHasAnswered() throws IOException {
         this.game.ReadyForNextStep(answers);
     }
 
+    /**
+     * Μέθοδος που περιμένει απο τον χρήστη να δώσει
+     * ένα όνομα στον παίκτη του παιχνιδιού.
+     */
     public void choosePlayerName() {
         for(int i = 1; i<=this.numberOfPlayers; i++) {
             String name = JOptionPane.showInputDialog(frame, "Choose the name of player"+i, "Player"+i+" name", JOptionPane.QUESTION_MESSAGE);
@@ -94,6 +110,11 @@ public class GUILogic {
         this.game = new Game(this, this.allPlayers);
         this.game.startGame();
     }
+
+    /**
+     * Μέθοδος που ετοιμάζει τις ερωτήσεις για τον παίκτη.
+     * @param question
+     */
     public void prepare(SingleQuestion question) {
         this.basicGame.prepareForNextQuestion(question);
         this.basicGame.invalidate();
@@ -101,6 +122,13 @@ public class GUILogic {
         this.basicGame.repaint();
     }
 
+    /**
+     * Μέθοδος για τον επόνενο γύρο.
+     * @param rounds γύρους παιχνιδιού
+     * @param roundName όνομα του γύρου
+     * @param roundInfo πληροφορίες του γύρου
+     * @param questionsInRound ερώτηση που περιέχει ο γύρος
+     */
     public void nextRound(int rounds, String roundName, String roundInfo, int questionsInRound) {
         this.basicGame.prepareForNextRound(rounds, roundName, roundInfo, questionsInRound);
     }
@@ -110,6 +138,10 @@ public class GUILogic {
         this.animateIn();
     }
 
+    /**
+     * Μέθοδος που επιλέγει τον αριθμό παικτών.
+     * @param p αριθμός παικτών
+     */
     public void playersChosen(int p) {
         this.numberOfPlayers = p;
         this.basicGame.setPlayers(p);
@@ -118,7 +150,8 @@ public class GUILogic {
     }
 
     /**
-     * Starts animating in the next primary Panel.
+     * Μέθοδος που αρχίσει να εμπλουτίζει (animate) το επόμενο
+     * αρχικό πάνελ.
      */
     public void animateIn() {
         Panel temporaryVarForPanel = this.showNextPanel();
@@ -167,6 +200,11 @@ public class GUILogic {
         this.timer.start();
     }
 
+    /**
+     * Μέθοδος που κρατάει πληροφορίες για τον/τους παίκτες.
+     * @param names όνομα παικτη/ων
+     * @param scores σκορ παίκτη/ων
+     */
     public void endOfGame(String[] names, int[] scores) {
         this.endScreen.setLabels(names, scores, this.numberOfPlayers);
         this.nextPanel++;

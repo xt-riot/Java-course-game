@@ -3,6 +3,10 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * Κλάση PlayerChoice που είναι επέκταση της κλάσης Panel
+ * και η οποία βοηθάει για την δημιουργία κουμπίων λόγο του πλέγματος (grid).
+ */
 public class PlayerChoice extends Panel {
 
     private final GUILogic parent;
@@ -13,6 +17,11 @@ public class PlayerChoice extends Panel {
     private final Timer timer;
     private int panels;
 
+    /**
+     * Κατασκευαστής της κλάσης PlayerChoice
+     * @param id
+     * @param testid
+     */
     public PlayerChoice(JFrame id, GUILogic testid) {
         super(id, true);
         this.parent = testid;
@@ -38,6 +47,9 @@ public class PlayerChoice extends Panel {
         this.buttons.addPropertyChangeListener("numberOfPlayers", evt -> setNumberOfPlayers((int)evt.getNewValue()));
     }
 
+    /**
+     * Μέθοδος για την κίνηση της εικόνας.
+     */
     @Override
     public void startRendering() {
         super.startRenderingImage(150, true);
@@ -45,6 +57,11 @@ public class PlayerChoice extends Panel {
 
     }
 
+    /**
+     * Μέθοδος που διατηρεί το αρχικό πλάσιο για μερικά δευτερόλεπτα
+     * και εμφανίζει κάποια κουμπιά.
+     * @param delay χρόνος καθυστερησης
+     */
     @Override
     public void unRender(int delay) {
         this.timer.removeActionListener(this.timer.getActionListeners()[0]);
@@ -82,6 +99,10 @@ public class PlayerChoice extends Panel {
         this.timer.start();
     }
 
+    /**
+     * Μέθοδος που επιλέγει τον αριθμό των παικτών (1 ή 2).
+     * @param players Παίκτης του παιχνιδιού.
+     */
     public void setNumberOfPlayers(int players) {
         this.numberOfPlayers = players;
         this.parent.playersChosen(this.numberOfPlayers);

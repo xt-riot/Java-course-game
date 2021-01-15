@@ -4,6 +4,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+/**
+ * Κλάση GameGUI που επεκτείνει την κλάση Panel.
+ */
 public class GameGUI extends Panel {
     private boolean bet;
     private boolean stopClock;
@@ -18,6 +21,11 @@ public class GameGUI extends Panel {
     private final Timer clock;
     private Label clockLabel;
 
+    /**
+     * Κατασκευαστής της κλάσης GameGUI.
+     * @param id
+     * @param numberOfPlayers αριθμός παικτών
+     */
     GameGUI(JFrame id, int numberOfPlayers) {
         super(id,true);
         this.numberOfPlayers = numberOfPlayers;
@@ -99,6 +107,10 @@ public class GameGUI extends Panel {
                     e.setText(possibleAnswers);
     }
 
+    /**
+     * Μέθοδος για την προετοιμασία της επόμενης ερώτησης.
+     * @param question επόμενη ερώτηση
+     */
     public void prepareForNextQuestion(SingleQuestion question) {
         this.timer.stop();
         super.fadeOut(this.questionLabel);
@@ -132,6 +144,13 @@ public class GameGUI extends Panel {
         this.timer.start();
     }
 
+    /**
+     * Μέθοδος για την προετοιμασία του επόμενου γύρου.
+     * @param round γύρος
+     * @param roundName όνομα γύρου
+     * @param roundInfo πληροφορίες γύρου
+     * @param questions ερωτήσεις γύρου
+     */
     public void prepareForNextRound(int round, String roundName, String roundInfo, int questions) {
         this.timer.stop();
         super.fadeIn(this.questionLabel);
@@ -151,16 +170,26 @@ public class GameGUI extends Panel {
         this.timer.start();
     }
 
+    /**
+     * Μέθοδος για τον αριθμό των παικτών.
+     * @param number αριθμός παικτών
+     */
     public void setPlayers(int number) {
         this.numberOfPlayers = number;
     }
 
+    /**
+     * Μέθοδος για την κίνηση της εικόνας.
+     */
     @Override
     public void startRendering() {
         super.startRenderingImage(150);
         this.rendering = true;
     }
 
+    /**
+     * Μέθοδος για την κίνηση της εικόνας.
+     */
     private void renderAll() {
         for (int i = 0; i < this.numberOfPlayers; i++)
             this.add(this.buttons[i]);

@@ -1,12 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Κλάση Label που επεκτείνει την κλάση Panel.
+ */
 class Label extends Panel {
     private final CustomLabel label;
     private int panelComponents;
 
     private final Timer timer;
 
+    /**
+     * Κατασκευαστής της κλάσης Label.
+     * @param id
+     * @param txt
+     */
     Label (JFrame id, String txt) {
         super(id, false);
         this.timer = new Timer(50, x->{});
@@ -24,11 +32,17 @@ class Label extends Panel {
         this.add(this.label, constraints);
     }
 
+    /**
+     * Μέθοδος για την εισσαγωγή κειμένου (όνομα).
+     * @param txt
+     */
     public void setText(String txt) {
         this.label.setText(txt);
     }
 
-
+    /**
+     * Μέθοδος για την κίνηση της εικόνας.
+     */
     public void startRendering() {
         this.rendering = true;
         this.timer.removeActionListener(this.timer.getActionListeners()[0]);
@@ -50,6 +64,10 @@ class Label extends Panel {
         this.timer.start();
     }
 
+    /**
+     * Μέθοδος που διατηρεί το αρχικό πλάσιο για μερικά δευτερόλεπτα.
+     * @param delay
+     */
     public void unRender(int delay) {
         this.rendering = true;
         this.counted = false;

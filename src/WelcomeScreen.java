@@ -1,10 +1,18 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ *Κλάση WelcomeScreen η οποία είναι επέκταση της κλάσης Panel
+ * και χρησιμοποιείται στην έναρξη του παιχνιδιού.
+ */
 public class WelcomeScreen extends Panel {
     private final Label panelLabel;
     private final Timer timer;
 
+    /**
+     * Κατασκευαστής της κλάσης WelcomeScreen
+     * @param id
+     */
     public WelcomeScreen(JFrame id) {
         super(id, true);
         this.hasbuttons = false;
@@ -17,11 +25,18 @@ public class WelcomeScreen extends Panel {
         this.panels = 0;
     }
 
+    /**
+     *Μέθοδος για την κίνηση της εικόνας.
+     */
     public void startRendering() {
         super.startRenderingImage(150, true);
         this.rendering = true;
     }
 
+    /**
+     *Μέθοδος που διατηρεί το αρχικό πλάσιο για μερικά δευτερόλεπτα.
+     * @param delay
+     */
     public void unRender(int delay) {
         this.timer.removeActionListener(this.timer.getActionListeners()[0]);
         this.timer.addActionListener(x -> {

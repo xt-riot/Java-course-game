@@ -2,6 +2,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Κλάση Game η οποία δημιουργεί την λογική του παιχνιδιού.
+ */
 public class Game {
     private int howManyRounds;
     private final int howManyPlayers;
@@ -14,6 +17,11 @@ public class Game {
     private final Random random;
     private StoredData saver;
 
+    /**
+     * Κατασκευαστής της κλάσης Game.
+     * @param howToDraw
+     * @param chosenPlayers
+     */
     public Game(GUILogic howToDraw, ArrayList<Player> chosenPlayers) {
         this.sd = howToDraw;
         this.players = chosenPlayers;
@@ -27,6 +35,9 @@ public class Game {
         this.saver = new StoredData();
     }
 
+    /**
+     * Μέθοδος για την επόμενη ερώτηση.
+     */
     public void NextQuestion() {
         this.howManyQuestions--;
         ArrayList<SingleQuestion> questionsToChooseFrom = this.getRandomCategory();
@@ -34,10 +45,16 @@ public class Game {
         sd.prepare(questionPerPlayer);
     }
 
+    /**
+     * Μέθοδος για την έναρξη του γύρου.
+     */
     public void startGame() {
         this.NextRound();
     }
 
+    /**
+     * Μέθοδος για τον επόμενο γύρο.
+     */
     private void NextRound() {
         this.howManyRounds--;
         this.round.RandomRound();
@@ -45,7 +62,11 @@ public class Game {
         this.sd.nextRound(this.howManyRounds, this.round.getRoundName(), this.round.getRoundInfo(), this.howManyQuestions);
     }
 
-
+    /**
+     * Μέθοδος
+     * @param answerPerPlayer
+     * @throws IOException
+     */
     public void ReadyForNextStep(String[] answerPerPlayer) throws IOException {
         this.addScores(answerPerPlayer);
         if (this.howManyQuestions > 0) {
@@ -55,6 +76,10 @@ public class Game {
         } else this.EndOfGame();
     }
 
+    /**
+     * Μέθοδος που μας δίνει τα ονόματα και σκορ των παικτών.
+     * @throws IOException
+     */
     public void EndOfGame() throws IOException {
         String[] names = new String[this.players.size()];
         int[] scores = new int[this.players.size()];
@@ -67,6 +92,10 @@ public class Game {
         saver.saveData(names,scores);
     }
 
+    /**
+     * Μέθοδος για να παίρνουμε τυχαίες κατηφορίες.
+     * @return
+     */
     private ArrayList<SingleQuestion> getRandomCategory() {
         int howManyCategories = allQuestions.getAllCategories().length;
         int temp = this.random.nextInt(howManyCategories - 1);
@@ -78,6 +107,10 @@ public class Game {
         return allQuestions.getCategoryQuestions(allQuestions.getAllCategories()[temp]);
     }
 
+    /**
+     * Μέθοδος που ανανεώνει το σκορ τον παικτών με βάση της απαντήσεις.
+     * @param answerPerPlayer
+     */
     private void addScores(String[] answerPerPlayer) {
         int score = this.round.getScore();
         for (Player player : this.players) {

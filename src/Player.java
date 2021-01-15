@@ -116,6 +116,9 @@ public class Player {
         this.questionsAndResult.addNewAnsweredQuestion(question, answer);
     }
 
+    /**
+     * Μέθοδος που τυπώνει τις ερωτήσεις και σκορ.
+     */
     public void getQuestionsAndResults() {
         questionsAndResult.printAnswers();
     }
