@@ -24,6 +24,7 @@ public class Game {
         this.allQuestions.fillQuestions();
         this.random = new Random();
         this.howManyRounds = this.random.nextInt(Main.maximumRounds) + 1;
+        this.saver = new StoredData();
     }
 
     public void NextQuestion() {
