@@ -16,20 +16,27 @@ public class CustomLabel extends JLabel {
         super(text);
         this.panel = panelID;
         this.counted = false;
-        this.asd = new Timer(1, e -> {
-            currentAlpha += 255 / fade;
-            fadeLabel();
-        });
+        this.asd = new Timer(1, e -> {});
         this.rendered = false;
         this.rendering = false;
+        //this.setBorder(BorderFactory.createLineBorder(Color.red));
+
     }
     public void fadeIn(int f) {
         this.currentAlpha = 0;
         this.setVisible(true);
         this.fade = f;
+        ActionListener action = e -> {
+            currentAlpha += 255 / 90;
+            fadeLabel();
+        };
+        this.asd.removeActionListener(this.asd.getActionListeners()[0]);
+        this.asd.addActionListener(action);
         this.asd.start();
         this.rendering = true;
         this.counted = false;
+        //System.out.println(this.getText());
+        //this.setForeground(Color.white);
     }
 
     public void fadeOut() {

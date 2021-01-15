@@ -47,7 +47,6 @@ public class PlayerChoice extends Panel {
 
     @Override
     public void startRendering() {
-        this.label.setName("PlayerChoiceLabel");
         super.startRenderingImage(150, true);
         this.rendering = true;
 
@@ -79,7 +78,7 @@ public class PlayerChoice extends Panel {
                 else if ( x instanceof Buttons ) {
                     if ( ((Buttons) x).isShown() && ((Buttons) x).isRendering()) {
                         System.out.println(x.getClass().getName() + " has been ordered to unrender.");
-                        ((Buttons) x).setCoordinates(x.getX(), Main.HEIGHT, x.getY());
+                        //((Buttons) x).setCoordinates(x.getX(), Main.HEIGHT, x.getY());
                         ((Buttons) x).unRender(0);
                     }
                     else if ( !((Buttons) x).isShown() && ((Buttons) x).isCounted()) {

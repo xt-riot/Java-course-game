@@ -40,6 +40,7 @@ class Label extends Panel {
         this.rendering = true;
         this.timer.removeActionListener(this.timer.getActionListeners()[0]);
         this.timer.addActionListener(x -> {
+            //System.out.println(this.label.isRendering());
             if(this.frame.isVisible() && this.label.isShown() && this.label.isCounted()) {
                 this.panelComponents++;
                 this.label.setCounted(true);
@@ -51,9 +52,10 @@ class Label extends Panel {
                 System.out.println(this.getClass().getName() + " has completed fading in.");
                 this.timer.stop();
             }
-            else if (this.frame.isVisible() &&  this.label.isRendering()) {
-                System.out.println(this.getRootPane());
+            else if (this.frame.isVisible() && this.label.isRendering()) {
+                //System.out.println(this.getRootPane());
                 System.out.println(this.getClass().getName() + " has requested " + this.label.getClass().getName() + " to fade in.");
+                //this.rendering = true;
                 this.label.fadeIn(90);
             }
         });

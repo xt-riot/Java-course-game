@@ -1,4 +1,4 @@
-Κατηγορία,Ερώτηση,Απάντηση 1,Απάντηση 2,Απάντηση 3,Απάντηση 4,Σωστή απάντηση,Όνομα εικόνας
+,Ερώτηση,Απάντηση 1,Απάντηση 2,Απάντηση 3,Απάντηση 4,Σωστή απάντηση,Όνομα εικόνας
 Food,Which nut is used to make dynamite?,Peanuts,Walnuts,Pine nuts,Almonds,Peanuts,Χωρίς Εικόνα
 Food,What was the first cold breakfast cereal invented in 1863?,Granola,Corn flakes,Bran flakes,Cheerios,Granola,Χωρίς Εικόνα
 Food,Who invented Coca-Cola?,John Pemberton,Asa Griggs Candler,Charles Elmer Hires,John Matthews,John Pemberton,Χωρίς Εικόνα
@@ -20,18 +20,18 @@ Technology,The computer Deep Blue is known for beating a grandmaster in which ga
 Technology,"Released in 1900, the Brownie was a famous early camera from what company?",Kodak,Polaroid,Canon,Fuji,Kodak,Χωρίς Εικόνα
 Technology,In which country did the brand LG originate?,USA,China,Germany,South Korea,South Korea,Χωρίς Εικόνα
 Technology,"What website was originally known as ""Gadabra""?",Google,Facebook,Amazon,Instagram,Amazon,Χωρίς Εικόνα
-Technology,What company specializes in GPS technology?,Bose,Garmin,Nintendo,Mozilla,Garmin,Χωρίς Εικόνα
+Technology,What company specializes in GPS technology?,Bose,Garmin,Nintendo,Mozilla,Bose,Χωρίς Εικόνα
 Technology,"What video-on-demand service was originally called ""Watch Now""?",Hulu,Prime Video,Vudu,Netflix,Netflix,Χωρίς Εικόνα
 Technology,In which year did Tim Berners-Lee invent the World Wide Web?,1960,1985,1993,1989,1989,Χωρίς Εικόνα
 Technology,"On an email, what does ""CC"" stand for?",Carbon Copy,Course Corrected,Check Core,Can't Complete,Carbon Copy,Χωρίς Εικόνα
 Technology,What is the name of the blue bird that is in Twitter's logo?,Freddy,Larry,Manny,Tony,Larry,Χωρίς Εικόνα
 Technology,Paypal was spun off from which major company in 2015?,eBay,Microsoft,Amazon,Yahoo!,eBay,Χωρίς Εικόνα
-Technology,Tech giant Foxconn is headquartered in which of these countries?,Mexico,Brazil,Denmark,Taiwan,Taiwan,Χωρίς Εικόνα
+Technology,Tech giant Foxconn is headquartered in which of these countries?,eBay,Microsoft,Amazon,Yahoo!,eBay,Χωρίς Εικόνα
 Technology,The compact disc was originally developed by Philips and which company?,Sony,IBM,Apple,Zenith,Sony,Χωρίς Εικόνα
 Technology,What is a type of test to see if a specific network address can be reached?,Trumpet,Dot,Ping,Jam,Ping,Χωρίς Εικόνα
 Technology,Which food is slang for poorly-written computer code? ,Roast Beef,Rye Bread,Spaghetti,Lasagna,Spaghetti,Χωρίς Εικόνα
 Technology,Which of these social media platforms was launched in 2010? ,Twitter,Myspace,Facebook,Instagram,Instagram,Χωρίς Εικόνα
-Technology,"What search engine was originally called ""Jerry and David's Guide to the World Wide Web""?",Amazon,AOL,Google,Yahoo!,Yahoo!,Χωρίς Εικόνα
+Technology,"What search engine was originally called ""Jerry and David's Guide to the World Wide Web""?",Amazon,AOL,,Yahoo!,Yahoo!,Χωρίς Εικόνα
 Films,What year was the first Toy Story film released in cinemas?,1995,1999,2001,1992,1995,Χωρίς Εικόνα
 Films,"Who directed Titanic, Avatar and The Terminator?",Quentin Tarantino,James Cameron,Joss Whedon,Edgar Wright,James Cameron,Χωρίς Εικόνα
 Films,Which Oscar-winning actress is the voice of Helen Parr (Elastigirl) in The Incredibles?,Emma Stone,Kate Winslet,Holly Hunter,Julianne Moore,Holly Hunter,Χωρίς Εικόνα
@@ -42,10 +42,10 @@ Technology,"What does ""GPS"" stand for?",Global Positioning System,Graphic Plan
 Technology,"Which computer programming language was known for its ""turtle graphics""?",Logo,Python,COBOL,C++,Logo,Χωρίς Εικόνα
 Technology,What company produced the Walkman?,Sony,JVC,Philips,Panasonic,Sony,Χωρίς Εικόνα
 Science,The Manhattan Project resulted in the invention of the first?,Liquid Rocket Fuel,Television,Artificial Heart,Atom Bomb,Atom Bomb,Χωρίς Εικόνα
-Films,Which actor broke two toes whilst filming The Lord of the Rings: The Two Towers?,Viggo Mortensen,Elijah Wood,Ian McKellen,Orlando Bloom,Viggo Mortensen,Χωρίς Εικόνα
+Films,Which actor broke two toes whilst filming The Lord of the Rings: The Two Towers?,Viggo Mortensen,Viggo Mortensen,Ian McKellen,Orlando Bloom,Viggo Mortensen,Χωρίς Εικόνα
 Films,How many films have Al Pacino and Robert De Niro starred in together?,10,6,2,4,4,Χωρίς Εικόνα
 Films,The Imitation Game is a biopic based on which twentieth century figure?,Albert Einstein,Nikola Tesla,Alan Turing,Marie Curie,Alan Turing,Χωρίς Εικόνα
-Films,What does Tom Hanks compare life to in Forest Gump?,A book,A box of chocolates,A sunny day,A bouquet of flowers,A box of chocolates,Χωρίς Εικόνα
+Science,What does Tom Hanks compare life to in Forest Gump?,A book,A box of chocolates,A sunny day,A bouquet of flowers,A box of chocolates,Χωρίς Εικόνα
 Science,The theory of relativity was introduced in physics by this man.,Albert Einstein,Galileo Galilei,Archimedes,Isaac Newton,Albert Einstein,Χωρίς Εικόνα
 Science,What part of the eye determines what the color of it is ?,Iris,Lens,Cornea,Pupil,Iris,Χωρίς Εικόνα
 Science,Which of these is a metal on the periodic table?,Neon,Radon,Zinc,Krypton,Zinc,Χωρίς Εικόνα
@@ -56,22 +56,22 @@ Science,Which planet has the Great Red Spot?,Jupiter,Mercury,Mars,Venus,Jupiter,
 Science,What is NOT considered one of the Galilean Moons of Jupiter?,Io,Phobos,Ganymede,Europa,Phobos,Χωρίς Εικόνα
 Science,How many different blood types can be found in the human body?,4,3,1,2,4,Χωρίς Εικόνα
 Science,Ascorbic acid is more commonly referred to as what?,Gluten,Lactose,Vitamin C,Aspirin,Vitamin C,Χωρίς Εικόνα
-Science,What is the largest organ in the human bofy?,Heart,Large Intestine,Lungs,Skin,Skin,Χωρίς Εικόνα
-Science,Approcimately how many Earths could fit inside the sun?,356000,1.3 Million,864000,2 Million,1.3 Million,Χωρίς Εικόνα
+Science,What is the largest organ in the human body?,Heart,Large Intestine,Lungs,Skin,Skin,Χωρίς Εικόνα
+Science,Approximately how many Earths could fit inside the sun?,356000,1.3 Million,864000,2 Million,1.3 Million,Χωρίς Εικόνα
 Science,What type of brain disorder causes difficulty in speech and movement?,Arthritis,Parkinson's Disease,Diabetes,Pneumonia,Parkinson's Disease,Χωρίς Εικόνα
 Science,Which organ could grow back if you donated part of it?,Liver,Stomach,Pancreas,Intestine,Liver,Χωρίς Εικόνα
 Science,What disease is created when cells in the body begin to divide uncontrollably?,Cancer,Influenza,Alzheimer's,Diabetes,Cancer,Χωρίς Εικόνα
 Science,"What is the closest star to the Earth, beside the Sun?",Rigel,Proxima Centauri,Canopus,Arctutus,Proxima Centauri,Χωρίς Εικόνα
 Science,Who developed the smallpox vaccine?,John Adams,Edward Jenner,Louis Pasteur,Alexander Fleming,Edward Jenner,Χωρίς Εικόνα
-Science,What is the only metal tha can be in liquid form at room temperature?,iron,Copper,Magnesium,Mercury,Mercury,Χωρίς Εικόνα
+Science,What is the only metal that can be in liquid form at room temperature?,iron,Copper,Magnesium,Mercury,Mercury,Χωρίς Εικόνα
 Science,"""Fe"" is the chemical symbol for which common element?",Copper,Iron,Oxygen,Hydrogen,Iron,Χωρίς Εικόνα
 Science,Which chemical element is historically known as quicksilver?,Platinum,Mercury,Silver,Gold,Mercury,Χωρίς Εικόνα
-Science,vaccine gets its name from the Latin for which farm animal?,Sheep,Pig,Cow,Goat,Cow,Χωρίς Εικόνα
+Science,Vaccine gets its name from the Latin for which farm animal?,Sheep,Pig,Cow,Goat,Cow,Χωρίς Εικόνα
 Science,Which planet has the coldest atmosphere in the solar system?,Jupiter,Mercury,Uranus,Neptune,Uranus,Χωρίς Εικόνα
 Science,Which part of the body is affected by a Pott's fracture?,Wrist,Knee,Ankle,Arm,Ankle,Χωρίς Εικόνα
 Science,During which century was the telescope created?,16th Century,19th Century,17th Century,18th Century,17th Century,Χωρίς Εικόνα
 Science,"Which planet is covered in thick poisonous clouds, trapping all the heat it absorbs from the Sun?",Mercury,Earth,Saturn,Venus,Venus,Χωρίς Εικόνα
-Science,Galileo discovered the first four moons aroun which planet?,Mercury,Mars,Jupiter,Venus,Jupiter,Χωρίς Εικόνα
+Science,Galileo discovered the first four moons around which planet?,Mercury,Mars,Jupiter,Venus,Jupiter,Χωρίς Εικόνα
 Science,What is the symbol for sodium?,Na,So,Cl,S,Na,Χωρίς Εικόνα
 Science,What part of the cerebrum helps with vision?,Frontal Lobe,Temporal lobe,Parietal Lobe,Occipital Lobe,Occipital Lobe,Χωρίς Εικόνα
 Technology,What does HTTP stand for?,HyperText Transfer Protocol,Highly Transposed Text Protocol,Helios Transport Transcontinental Productions,Hi-Tao Tsushimi Products,HyperText Transfer Protocol,Χωρίς Εικόνα
@@ -79,3 +79,20 @@ Geography,What is the capital of Lithuania?,Vilnius,Minsk,Krakow,Riga,Vilnius,Χ
 Geography,With which country does France NOT share a land border with?,Germany,Switcherland,Austria,Luxembourg,Austria,Χωρίς Εικόνα
 Sports,What country won the very first FIFA World Cup in 1930?,Paraguay,Brazil,Germany,Uruguay,Uruguay,Χωρίς Εικόνα
 Music,When was the band System of a Down formed?,1988,1987,1990,1992,1988,Χωρίς Εικόνα
+Ιστορία,Πότε έγινε ο Β’ Βαλκανικός Πόλεμος?,1912,1913,1914,1911,1913,Χωρίς Εικόνα
+Ιστορία,Πότε έγινε η Αθήνα πρωτεύουσα της Ελλάδας?,1930,1934,1933,1935,1934,Χωρίς Εικόνα
+Music,In what year did The Beatles split up?,1970,1972,1968,1974,1970,Χωρίς Εικόνα
+Sports,How many goals did England score (excluding penalty shoot-outs) at the Mens' 2018 FIFA World Cup?,12,15,10,11,12,Χωρίς Εικόνα
+Sports,Which European city hosted the 1936 Summer Olympics?,Berlin,Madrid,London,Paris,Berlin,Χωρίς Εικόνα
+Sports,How many different teams have won the Premier League since the start of the inaugural season in 1992/93?,7,6,5,8,7,Χωρίς Εικόνα
+Sports,At which venue was the first World Championship Grand Prix held?,Silverstone,Monza,Spa,Pescara,Silverstone,Χωρίς Εικόνα
+Food,"What spice, frequently used in Hungarian, Indian, and Moroccan food, provides vitamin A and inhibit hair loss?",Cinnamon,Paprika,Cardamom,Cumin,Paprika,Χωρίς Εικόνα
+Food,What type of sugar includes a small amount of cornstarch to prevent lumping while mixing?,Caster Sugar,Granulated Sugar,Powdered Sugar,Coarse Sugar,Powdered Sugar,Χωρίς Εικόνα
+Sports,The number of players in each side in Water Polo is:,6,7,8,9,7,Χωρίς Εικόνα
+Sports,"Which one the following Grand Slam titles is also know as ""Roland Garros"" title?",French Open,U.S. Open,Wimbledon,Australian Open,French Open,Χωρίς Εικόνα
+Sports,In which sports is the participant called pugilist?,Sprinter,Boxing,Wrestling,Javelin throw,Boxing,Χωρίς Εικόνα
+Geography,Πού είναι το Τιμπουκτού;,Μαυριτανία,Μάλι,Αλγερία,Μεξικό,Μάλι,Χωρίς Εικόνα
+Science,Ποιος ήταν ο πρώτος άνθρωπος στο διάστημα;,Ο Νηλ Άρμστρογκ,Η Λάικα,Ο Γιούρι Γκαγκάριν,Ο Άλαν Σέπαρντ,Ο Γιούρι Γκαγκάριν,Χωρίς Εικόνα
+Geography,Which of the following cities is NOT in Europe?,Barcelona,Prague,Moscow,Reykjavik,Moscow,Χωρίς Εικόνα
+Geography,Which is the largest river in the world?,The Nile,River Aliakmonas,The Yangtze,The Amazon,The Nile,Χωρίς Εικόνα
+Food,Which of the following ingredients is not used to make Dijon Mustard?,Garlic,White Wine,Mustard seeds,Olives,Olives,Χωρίς Εικόνα

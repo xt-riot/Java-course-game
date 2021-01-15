@@ -61,6 +61,7 @@ class Buttons extends Panel {
             constraints.fill = GridBagConstraints.BOTH;
             constraints.ipady = 50;
             constraints.ipadx = 50;
+            //System.out.println
             this.players[i].addActionListener(e -> this.firePropertyChange("playerHasAnswered", 1, this.players[k].getText()));
             if(i == numberOfButtons-1) constraints.insets = new Insets(0,Main.WIDTH / (numberOfButtons * 8), 0, 0 );
             if(vertical) {
@@ -73,6 +74,7 @@ class Buttons extends Panel {
             CustomButton e = this.players[i];
             this.add(e, constraints);
         }
+        this.setBorder(BorderFactory.createLineBorder(Color.red));
     }
 
     public void setText(ArrayList<String> text) {
@@ -86,7 +88,6 @@ class Buttons extends Panel {
     public void setListeners(ActionListener[] action) {
         for(int i = 0; i < this.players.length; i++)
             this.players[i].addActionListener(action[i]);
-        System.out.println(this.players[0].getActionListeners().length);
     }
 
     public void setCoordinates(int x, int y, int wantedY) {
@@ -95,11 +96,16 @@ class Buttons extends Panel {
         this.currentY = wantedY;
     }
 
+    public void render() {
+        for( CustomButton x : this.players)
+            x.render(true);
+    }
+
 
     @Override
     public void startRendering() {
         this.rendering = true;
-        System.out.println("HELLO");
+        //System.out.println("HELLO");
         this.timer.removeActionListener(this.timer.getActionListeners()[0]);
         this.timer.addActionListener(x -> {
             this.currentY -= Main.HEIGHT/20;
@@ -108,8 +114,8 @@ class Buttons extends Panel {
                 this.currentY = this.endY;
                 this.isShown = true;
                 this.rendering = false;
-            } else if (this.players[0].getText().equals("")) {
-                System.out.println("HELLO");
+            } else if (this.currentY >= Main.HEIGHT - this.endY) {
+                //System.out.println("HELLO");
                 for( CustomButton e : this.players) {
                     e.render(true);
                 }
@@ -127,17 +133,20 @@ class Buttons extends Panel {
         this.timer.removeActionListener(this.timer.getActionListeners()[0]);
         this.timer.addActionListener(x -> {
             this.currentY += Main.HEIGHT/50;
-            if (this.currentY >= this.endY) {
+            if (this.currentY >= Main.HEIGHT) {
                 this.timer.stop();
+                this.currentY = Main.HEIGHT;
                 this.isShown = false;
                 this.rendering = false;
-                for( CustomButton e : this.players)
-                    e.render(false);
+                if(delay == 0) {
+                    for (CustomButton e : this.players)
+                        e.render(false);
+                }
             }
             this.setLocation(endX, currentY);
 
         });
-        this.timer.setInitialDelay(1500);
+        this.timer.setInitialDelay(0);
         this.timer.start();
     }
 

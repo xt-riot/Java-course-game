@@ -31,7 +31,7 @@ public class SingleQuestion {
         answers.add(data[3]);                       // Το τέταρτο κελί  - Απάντηση 2
         answers.add(data[4]);                       // Το πέμπτο κελί   - Απάντηση 3
         answers.add(data[5]);                       // Το έκτο κελί     - Απάντηση 4
-        Collections.shuffle(answers);               // Ανακάτεψε τις απαντήσεις πριν μπει η σωστή
+        //Collections.shuffle(answers);               // Ανακάτεψε τις απαντήσεις πριν μπει η σωστή
         answers.add(data[6]);                       // Το έβδομο κελί   - Σωστή απάντηση
     }
 

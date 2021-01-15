@@ -7,6 +7,7 @@ public class WelcomeScreen extends Panel {
     private PlayerChoice player;
     private Timer timer;
     private int panels;
+    private Label test;
 
     public WelcomeScreen(JFrame id, GUILogic callerID) {
         super(id, true);

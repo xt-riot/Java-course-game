@@ -47,10 +47,6 @@ class GameRounds {
     }
 
     private int BettingRound() {
-        //Scanner temp = new Scanner(System.in);
-        //System.out.println();
-        //System.out.println("\t\tBefore answering, you have to choose how much you want to bet: ");
-        //System.out.println("\t\tBetting amounts: A) 250, B) 500, C) 750, D) 1000");
         String line = "a";
         line = line.toUpperCase();
         switch (line) {
@@ -85,14 +81,14 @@ class GameRounds {
     }
 
     public int getScore() {
-        int score = 500;
-        switch(this.roundIndex) {
-            case(0):    score = 1000; break;
-            case(1):    break;
-            case(2):    score = BettingRound(); break;
-            case(3):    break;
-            case(4):    break;
-        }
+        int score = switch (this.roundIndex) {
+            case (0) -> 1000;
+            case (1) -> 1000;
+            case (2) -> BettingRound();
+            case (3) -> 1000;
+            case (4) -> 1000;
+            default -> 0;
+        };
         return score;
     }
     public boolean isBettingRound() {
@@ -102,34 +98,15 @@ class GameRounds {
 
 
 public class Game {
-    //public static int maximumQuestions = 3;
-    //public static int maximumRounds = 3;
-
     private int howManyRounds;
     private final int howManyPlayers;
     private int howManyQuestions;
     private GUILogic sd;
     private SingleQuestion questionPerPlayer;
-    //private ArrayList<String> categories;
     private final ArrayList<Player> players;
     private final AllQuestions allQuestions;
     private final GameRounds round;
     private final Random random;
-
-    /*ublic Game(GUI howToDraw, ArrayList<Player> chosenPlayers) {
-        this.draw = howToDraw;
-        this.players = chosenPlayers;
-        this.howManyPlayers = this.players.size();
-
-        this.round = new GameRounds();
-        //this.questionPerPlayer = new SingleQuestion();
-        this.allQuestions = new AllQuestions();
-        this.allQuestions.fillQuestions();
-        this.random = new Random();
-        this.howManyRounds = 3;
-        this.howManyQuestions = 0;
-
-    }//*/
 
     public Game(GUILogic howToDraw, ArrayList<Player> chosenPlayers) {
         this.sd = howToDraw;
@@ -137,82 +114,38 @@ public class Game {
         this.howManyPlayers = this.players.size();
 
         this.round = new GameRounds();
-        //this.questionPerPlayer = new SingleQuestion[chosenPlayers.size()];
         this.allQuestions = new AllQuestions();
         this.allQuestions.fillQuestions();
         this.random = new Random();
-        this.howManyRounds = 3;
-        this.howManyQuestions = 0;
-
-    }
-
-    public void StartGame() {
-        /*
-        - GUI has initialized Game() and this class takes control
-        - Tell GUI to draw starting screen
-        - when program returns here, start the game while rounds > 0 choosing a random round each iteration
-
-        - invoke EndOfGame
-         */
+        this.howManyRounds = this.random.nextInt(5) + 1;
+        this.howManyQuestions = this.random.nextInt(5) + 1;
 
     }
 
     private void NextQuestion() {
-        /*
-        - Get a new category
-        - Get a new pair of questions according to the given category
-        - Tell GUI to draw the questions
-         */
         this.howManyQuestions--;
         ArrayList<SingleQuestion> questionsToChooseFrom = this.getRandomCategory();
         this.questionPerPlayer = allQuestions.getRandomQuestion(questionsToChooseFrom);
+        questionPerPlayer.printObject();
         sd.prepare(questionPerPlayer);
 
     }
 
     public void startGame() {
-        //System.out.println(this.howManyRounds + " // " + this.howManyQuestions);
         this.NextRound();
     }
 
-    private void NextQuestion(int k) {
-        /*
-        - Get a new category
-        - Get a new pair of questions according to the given category
-        - Tell GUI to draw the questions
-         */
-        this.howManyQuestions--;
-        ArrayList<SingleQuestion> questionsToChooseFrom = this.getRandomCategory();
-        this.questionPerPlayer = allQuestions.getRandomQuestion(questionsToChooseFrom);
-        sd.prepare(questionPerPlayer);
-
-    }
-
     private void NextRound() {
-        /*
-        - set next round
-        - invoke NextQuestion to get new questions and show them
-        - add questions, answers and score to Player database
-         */
         this.howManyRounds--;
-        this.howManyQuestions = random.nextInt(Main.maximumQuestions);
         this.round.RandomRound();
-        //System.out.println("ROUND: " + this.round.getRoundInfo());
-        this.NextQuestion();
-        //this.sd.nextRound(this.howManyRounds, this.round.getRoundName(), this.round.getRoundInfo(), this.howManyQuestions);
+        this.sd.nextRound(this.howManyRounds, this.round.getRoundName(), this.round.getRoundInfo(), this.howManyQuestions);
     }
 
 
     public void GetNextQuestion() {
-        /*
-        - provide Player.java the question, the answer and a new score for each player
-         */
         this.NextQuestion();
     }
     public void ReadyForNextStep(String[] answerPerPlayer) {
-        /*
-        - provide Player.java the question, the answer and a new score for each player
-         */
         this.addScores(answerPerPlayer);
         if (this.howManyQuestions > 0) {
             this.NextQuestion();
@@ -221,12 +154,17 @@ public class Game {
         } else this.EndOfGame();
     }
 
-    private void EndOfGame() {
-        /*
-        - end of game
-         */
-
-        sd.endOfGame();
+    public void EndOfGame() {
+        String[] names = new String[this.players.size()];
+        int[] scores = new int[this.players.size()];
+        for(Player player : players) {
+            System.out.println("* " + player.getName() + " is " + player.getScore() + " points.");
+            System.out.println();
+            player.getQuestionsAndResults();
+            names[players.indexOf(player)] = player.getName();
+            scores[players.indexOf(player)] = player.getScore();
+        }
+        sd.endOfGame(names, scores);
     }
 
     private ArrayList<SingleQuestion> getRandomCategory() {
@@ -244,7 +182,6 @@ public class Game {
         int score = this.round.getScore();
         for (Player player : this.players) {
             int index = this.players.indexOf(player);
-            //String choice = this.questionPerPlayer.getAnswers().get(answerPerPlayer[index]);
             if (this.questionPerPlayer.correctAnswer().equals(answerPerPlayer[index]))
                 player.addNewScore(score);
             else if (this.round.isBettingRound())
@@ -252,16 +189,6 @@ public class Game {
             player.addAnsweredQuestion(this.questionPerPlayer, answerPerPlayer[index]);
         }
 
-    }
-
-    private String intToString(int incoming) {
-        return switch (incoming) {
-            case (0) -> "A";
-            case (1) -> "B";
-            case (2) -> "C";
-            case (3) -> "D";
-            default -> "Error";
-        };
     }
 
     public String printTotalScore(int number) {
