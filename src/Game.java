@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -11,6 +12,7 @@ public class Game {
     private final AllQuestions allQuestions;
     private final GameRounds round;
     private final Random random;
+    private StoredData saver;
 
     public Game(GUILogic howToDraw, ArrayList<Player> chosenPlayers) {
         this.sd = howToDraw;
@@ -43,7 +45,7 @@ public class Game {
     }
 
 
-    public void ReadyForNextStep(String[] answerPerPlayer) {
+    public void ReadyForNextStep(String[] answerPerPlayer) throws IOException {
         this.addScores(answerPerPlayer);
         if (this.howManyQuestions > 0) {
             this.NextQuestion();
@@ -52,7 +54,7 @@ public class Game {
         } else this.EndOfGame();
     }
 
-    public void EndOfGame() {
+    public void EndOfGame() throws IOException {
         String[] names = new String[this.players.size()];
         int[] scores = new int[this.players.size()];
         for(Player player : players) {
@@ -61,6 +63,7 @@ public class Game {
             scores[players.indexOf(player)] = player.getScore();
         }
         sd.endOfGame(names, scores);
+        saver.saveData(names,scores);
     }
 
     private ArrayList<SingleQuestion> getRandomCategory() {
